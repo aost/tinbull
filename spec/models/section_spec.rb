@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Section do
-  before do
-    @section = FactoryGirl.build(:section)
-  end
+  before { @section = FactoryGirl.build(:section) }
 
   subject { @section }
 
