@@ -1,5 +1,5 @@
 FactoryGirl.define do 
   factory :section do
-    name  'foobar'
+    name 'foobar'
   end
 end
