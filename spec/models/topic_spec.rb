@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Topic do
   before { @topic = FactoryGirl.build(:topic) }
-
   subject { @topic }
 
   it { should respond_to(:name) }

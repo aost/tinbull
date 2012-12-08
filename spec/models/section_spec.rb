@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Section do
   before { @section = FactoryGirl.build(:section) }
-
   subject { @section }
 
   it { should respond_to(:name) }

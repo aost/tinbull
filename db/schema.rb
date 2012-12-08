@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(:version => 20121208015627) do
 
   create_table "posts", :force => true do |t|
     t.text     "text"
-    t.string   "password"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "password_hash"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "sections", :force => true do |t|
