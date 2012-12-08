@@ -6,6 +6,7 @@ describe Section do
   subject { @section }
 
   it { should respond_to(:name) }
+  it { should respond_to(:topics) }
   it { should be_valid }
 
   describe "when name" do
@@ -27,6 +28,8 @@ describe Section do
     describe "contains capital letters" do
       before { @section.name = 'fooBar' }
       it { should_not be_valid }
+      
+      describe "after saving"
     end
 
     describe "already exists" do

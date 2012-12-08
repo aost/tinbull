@@ -6,5 +6,6 @@ FactoryGirl.define do
   factory :topic do
     name "What is a man?"
     text "I wonder."
+    section
   end
 end
