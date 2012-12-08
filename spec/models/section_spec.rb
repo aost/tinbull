@@ -27,9 +27,7 @@ describe Section do
 
     describe "contains capital letters" do
       before { @section.name = 'fooBar' }
-      it { should_not be_valid }
-      
-      describe "after saving"
+      its(:name) { should == 'foobar' }
     end
 
     describe "already exists" do
