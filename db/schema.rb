@@ -11,13 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121208015627) do
+ActiveRecord::Schema.define(:version => 20121208054752) do
 
   create_table "posts", :force => true do |t|
     t.text     "text"
     t.string   "password_hash"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "parent_id"
+    t.integer  "topic_id"
   end
 
   create_table "sections", :force => true do |t|

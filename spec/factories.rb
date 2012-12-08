@@ -1,6 +1,8 @@
 FactoryGirl.define do 
+  sequence(:foobarn) { |n| "foobar#{n}" }
+
   factory :section do
-    name 'foobar'
+    name { generate(:foobarn) }
   end
 
   factory :topic do
@@ -10,5 +12,6 @@ FactoryGirl.define do
 
   factory :post do
     text "A miserable pile of secrets!"
+    topic
   end
 end

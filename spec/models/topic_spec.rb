@@ -7,6 +7,7 @@ describe Topic do
   it { should respond_to(:name) }
   it { should respond_to(:text) }
   it { should respond_to(:section) }
+  it { should respond_to(:posts) }
   it { should respond_to(:created_at) }
   it { should respond_to(:updated_at) }
   it { should be_valid }
@@ -47,7 +48,7 @@ describe Topic do
     end
 
     describe "is a section object" do
-      before { @topic.section = FactoryGirl.create(:section, name: 'politics') }
+      before { @topic.section = FactoryGirl.create(:section) }
       it { should be_valid }
     end
 

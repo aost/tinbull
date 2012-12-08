@@ -2,6 +2,7 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :text, :section
 
   belongs_to :section
+  has_many :posts
 
   def text= t
     if t.blank?
@@ -14,7 +15,7 @@ class Topic < ActiveRecord::Base
   def section= s
     case s
     when Section
-      self.section_id = s.id
+      super
     when String
       self.section_id = Section.where(name: s).first_or_create.id
     when nil

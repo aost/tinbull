@@ -6,6 +6,9 @@ describe Post do
 
   it { should respond_to(:text) }
   it { should respond_to(:password_hash) }
+  it { should respond_to(:topic) }
+  it { should respond_to(:parent) }
+  it { should respond_to(:children) }
   it { should be_valid }
 
   describe "when text" do
@@ -29,6 +32,30 @@ describe Post do
       end
       it { should be_valid }
       its(:password_hash) { should_not == @old_password_hash }
+    end
+  end
+
+  describe "when topic" do
+    describe "is nil" do
+      before { @post.topic = nil }
+      it { should_not be_valid }
+    end
+
+    describe "is a topic" do
+      before { @post.topic = FactoryGirl.create(:topic) }
+      it { should be_valid }
+    end
+  end
+
+  describe "when parent" do
+    describe "is nil" do
+      before { @post.parent = nil }
+      it { should be_valid }
+    end
+
+    describe "is a post" do
+      before { @post.parent = FactoryGirl.create(:post) }
+      it { should be_valid }
     end
   end
 end
