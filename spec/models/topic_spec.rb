@@ -25,9 +25,14 @@ describe Topic do
   end
 
   describe "when text" do
+    describe "is nil" do
+      before { @topic.text = nil }
+      it { should be_valid }
+    end
+
     describe "is blank" do
       before { @topic.text = " " }
-      it { should be_valid }
+      its(:text) { should == nil }
     end
 
     describe "is over 5000 characters" do
@@ -42,12 +47,12 @@ describe Topic do
       it { should_not be_valid }
     end
 
-    describe "is a Section object" do
+    describe "is a section object" do
       before { @topic.section = FactoryGirl.create(:section, name: 'politics') }
       it { should be_valid }
     end
 
-    describe "is the name of a section" do
+    describe "is the name of an existing section" do
       before do
         FactoryGirl.create(:section, name: 'science')
         @topic.section = 'science'

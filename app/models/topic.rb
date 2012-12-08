@@ -3,6 +3,14 @@ class Topic < ActiveRecord::Base
 
   belongs_to :section
 
+  def text= t
+    if t.blank?
+      self[:text] = nil 
+    else
+      self[:text] = t
+    end
+  end
+
   def section= s
     case s
     when Section
