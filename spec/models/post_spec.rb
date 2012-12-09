@@ -57,5 +57,9 @@ describe Post do
       before { @post.parent = FactoryGirl.create(:post) }
       it { should be_valid }
     end
+
+    describe "is a topic" do
+      it { expect { @post.parent = Topic.new }.to raise_error }
+    end
   end
 end

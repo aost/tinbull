@@ -8,6 +8,7 @@ describe Topic do
   it { should respond_to(:text) }
   it { should respond_to(:section) }
   it { should respond_to(:posts) }
+  it { should respond_to(:password_hashes) }
   it { should respond_to(:created_at) }
   it { should respond_to(:updated_at) }
   it { should be_valid }
@@ -64,6 +65,65 @@ describe Topic do
       before { @topic.section = 'newsection' }
       it { should be_valid }
     end
-
   end
+
+  describe "when password_hashes" do
+    describe "is nil" do
+      before { @topic.password_hashes = nil }
+      it { should be_valid }
+    end
+
+    describe "is an array" do
+      before { @topic.password_hashes = ['hash', 'mohash'] }
+      it { should be_valid }
+
+      describe "after querying" do
+        before do
+          @topic.save
+          @topic = Topic.where(id: @topic.id).first
+        end
+        its(:password_hashes) { should be_a_kind_of(Array) }
+      end
+    end
+  end
+
+  describe "when passworded post is added" do
+    before do
+      @topic.posts << FactoryGirl.create(:post, password: 'loafly')
+      @topic.save!
+    end
+    it { should be_valid }
+    its(:password_hashes) { should have(1).hashstring }
+
+    describe "and two more with the same password" do
+      before do
+        2.times do
+          @topic.posts << FactoryGirl.create(:post, password: 'loafly')
+        end
+        @topic.save!
+      end
+      it { should be_valid }
+      its(:password_hashes) { should have(1).hashstring }
+    end
+
+    describe "and two more with different passwords" do
+      before do
+        @topic.posts << FactoryGirl.create(:post, password: '2')
+        @topic.posts << FactoryGirl.create(:post, password: '3')
+        @topic.save!
+      end
+      it { should be_valid }
+      its(:password_hashes) { should have(3).hashstrings }
+    end
+
+    describe "and two more without passwords" do
+      before do
+        2.times { @topic.posts << FactoryGirl.create(:post) }
+        @topic.save!
+      end
+      it { should be_valid }
+      its(:password_hashes) { should have(1).hashstring }
+    end
+  end
+
 end

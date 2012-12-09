@@ -1,4 +1,4 @@
-require 'bcrypt'
+require 'digest'
 
 class Post < ActiveRecord::Base
   attr_accessible :text, :password
@@ -9,8 +9,8 @@ class Post < ActiveRecord::Base
 
   def password= p
     if p
-      # TODO: Implement real salt
-      self.password_hash = BCrypt::Password.create("salty" + p) 
+      # TODO: Implement real salt and more secure hash function
+      self.password_hash = Digest::SHA1.hexdigest("salty" + p) 
     else
       self.password_hash = nil
     end
