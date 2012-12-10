@@ -68,22 +68,9 @@ describe Topic do
   end
 
   describe "when password_hashes" do
-    describe "is nil" do
-      before { @topic.password_hashes = nil }
-      it { should be_valid }
-    end
-
-    describe "is an array" do
-      before { @topic.password_hashes = ['hash', 'mohash'] }
-      it { should be_valid }
-
-      describe "after querying" do
-        before do
-          @topic.save
-          @topic = Topic.where(id: @topic.id).first
-        end
-        its(:password_hashes) { should be_a_kind_of(Array) }
-      end
+    describe "is called" do
+      before { @ph = @topic.password_hashes }
+      it { @ph.should be_a_kind_of Array }
     end
   end
 

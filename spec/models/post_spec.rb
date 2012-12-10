@@ -32,6 +32,11 @@ describe Post do
       end
       it { should be_valid }
       its(:password_hash) { should_not == @old_password_hash }
+
+      describe "after saving" do
+        before { @post.save }
+        it { @post.topic.password_hashes.should include @post.password_hash }
+      end
     end
   end
 
