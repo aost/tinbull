@@ -6,6 +6,7 @@ describe Post do
 
   it { should respond_to(:text) }
   it { should respond_to(:password_hash) }
+  it { should respond_to(:poster_id) }
   it { should respond_to(:topic) }
   it { should respond_to(:parent) }
   it { should respond_to(:children) }
@@ -36,6 +37,7 @@ describe Post do
       describe "after saving" do
         before { @post.save }
         it { @post.topic.password_hashes.should include @post.password_hash }
+        its(:poster_id) { should == 'A' }
       end
     end
   end

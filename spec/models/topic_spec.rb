@@ -77,39 +77,49 @@ describe Topic do
   describe "when passworded post is added" do
     before do
       @topic.posts << FactoryGirl.create(:post, password: 'loafly')
-      @topic.save!
     end
     it { should be_valid }
     its(:password_hashes) { should have(1).hashstring }
+    it { @topic.posts[0].poster_id.should == 'A' }
 
     describe "and two more with the same password" do
       before do
         2.times do
           @topic.posts << FactoryGirl.create(:post, password: 'loafly')
         end
-        @topic.save!
       end
       it { should be_valid }
       its(:password_hashes) { should have(1).hashstring }
+      it { 2.times { |i| @topic.posts[i].poster_id.should == 'A' } }
     end
 
-    describe "and two more with different passwords" do
+    describe "and twenty-seven more with different passwords" do
       before do
-        @topic.posts << FactoryGirl.create(:post, password: '2')
-        @topic.posts << FactoryGirl.create(:post, password: '3')
-        @topic.save!
+        27.times do |i|
+          @topic.posts << FactoryGirl.create(:post, password: (1+i).to_s)
+        end
       end
       it { should be_valid }
-      its(:password_hashes) { should have(3).hashstrings }
+      its(:password_hashes) { should have(28).hashstrings }
+      it do
+        {1 => 'B', 2 => 'C', 3 => 'D'}.each do |k, v|
+          @topic.posts[k].poster_id.should == v
+        end
+      end
+      it do
+        {25 => 'Z', 26 => 'AA', 27 => 'AB'}.each do |k, v|
+          @topic.posts[k].poster_id.should == v
+        end
+      end
     end
 
     describe "and two more without passwords" do
       before do
         2.times { @topic.posts << FactoryGirl.create(:post) }
-        @topic.save!
       end
       it { should be_valid }
       its(:password_hashes) { should have(1).hashstring }
+      it { 2.times { |i| @topic.posts[1+i].poster_id.should == nil } }
     end
   end
 

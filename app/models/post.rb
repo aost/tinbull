@@ -16,6 +16,26 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def poster_id
+    decimal_id = topic.password_hashes.index password_hash
+    if decimal_id
+      alphabase(decimal_id)
+    end
+  end
+
   validates :text, presence: true
   validates :topic, presence: true
+
+  private
+
+  def alphabase(n, letters = [])
+    alphabet = ('A'..'Z').to_a
+    length = alphabet.length
+    if (n >= length)
+      alphabase(n/length - 1, letters)
+      n = n % length
+    end
+    letters << alphabet[n]
+    letters.join
+  end
 end
