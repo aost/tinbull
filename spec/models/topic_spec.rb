@@ -43,27 +43,34 @@ describe Topic do
   end
 
   describe "when section" do
-    describe "is unspecified" do
-      before { @topic.section = nil }
+    describe "is blank" do
+      before { @topic.section = ' ' }
       it { should_not be_valid }
     end
 
-    describe "is a section object" do
-      before { @topic.section = FactoryGirl.create(:section) }
+    describe "is a short lowercase string" do
+      before { @topic.section = 'videogames' }
       it { should be_valid }
     end
 
-    describe "is the name of an existing section" do
-      before do
-        FactoryGirl.create(:section, name: 'science')
-        @topic.section = 'science'
-      end
+    describe "is longer than 16 characters" do
+      before { @topic.section = 'a'*17 }
+      it { should_not be_valid }
+    end
+
+    describe "contains digits" do
+      before { @topic.section = '42nouns' }
       it { should be_valid }
     end
 
-    describe "is the name of a nonexistent section" do
-      before { @topic.section = 'newsection' }
-      it { should be_valid }
+    describe "contains non-alphanumeric characters" do
+      before { @topic.section = 'foo_bar' }
+      it { should_not be_valid }
+    end
+
+    describe "contains capital letters" do
+      before { @topic.section = 'fooBar' }
+      its(:section) { should == 'foobar' }
     end
   end
 

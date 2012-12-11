@@ -18,9 +18,7 @@ class Post < ActiveRecord::Base
 
   def poster_id
     decimal_id = topic.password_hashes.index password_hash
-    if decimal_id
-      alphabase(decimal_id)
-    end
+    alphabase(decimal_id) if decimal_id
   end
 
   validates :text, presence: true

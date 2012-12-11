@@ -1,13 +1,7 @@
 FactoryGirl.define do 
-  sequence(:foobarn) { |n| "foobar#{n}" }
-
-  factory :section do
-    name { generate(:foobarn) }
-  end
-
   factory :topic do
     name "What is a man?"
-    section
+    section 'philosophy'
   end
 
   factory :post do
