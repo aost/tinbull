@@ -17,6 +17,11 @@ describe Post do
       before { @post.text = " " }
       it { should_not be_valid }
     end
+
+    describe "is a string" do
+      before { @post.text = "String!" }
+      it { should be_valid }
+    end
   end
 
   describe "when password" do

@@ -19,6 +19,11 @@ describe Topic do
       it { should_not be_valid }
     end
 
+    describe "is a string" do
+      before { @topic.name = "Thoughts on Super Gear Escape 2" }
+      it { should be_valid }
+    end
+
     describe "is longer than 120 characters" do
       before { @topic.name = 'a'*121 }
       it { should_not be_valid }
@@ -34,6 +39,11 @@ describe Topic do
     describe "is blank" do
       before { @topic.text = " " }
       its(:text) { should == nil }
+    end
+
+    describe "is a string" do
+      before { @topic.text = "The first one was better." }
+      it { should be_valid }
     end
 
     describe "is over 5000 characters" do
