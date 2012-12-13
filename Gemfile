@@ -4,6 +4,7 @@ gem 'rails', '3.2.8'
 gem 'debugger'
 gem 'jquery-rails'
 gem 'bcrypt-ruby'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'sqlite3'
@@ -12,7 +13,7 @@ group :development, :test do
 end 
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '1.1.3'
   gem 'factory_girl_rails'
   gem 'guard-spork'
   gem 'spork'
