@@ -3,7 +3,7 @@ require 'digest'
 class Post < ActiveRecord::Base
   attr_accessible :text, :password
 
-  belongs_to :topic
+  belongs_to :topic, touch: true
   belongs_to :parent, class_name: "Post"
   has_many :children, class_name: "Post", foreign_key: "parent_id"
 

@@ -18,9 +18,9 @@ describe "Topic pages" do
         page.should have_selector('li a', text: topic.name)
         page.should have_selector('li a', text: topic.section)
         page.should have_selector('li p', 
-          text: time_ago_in_words(topic.created_at))
-        page.should have_selector('li p', 
           text: time_ago_in_words(topic.updated_at))
+        page.should have_selector('li p', 
+          text: time_ago_in_words(topic.created_at))
       end
     end
   end
