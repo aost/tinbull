@@ -19,6 +19,7 @@ group :test do
   gem 'spork'
   gem 'rb-inotify'
   gem 'libnotify'
+  gem 'launchy'
 end
 
 group :production do

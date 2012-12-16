@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Topic do
-  before { @topic = FactoryGirl.build(:topic) }
+  before { @topic = FactoryGirl.create(:topic) }
   subject { @topic }
 
   it { should respond_to(:name) }
@@ -9,6 +9,7 @@ describe Topic do
   it { should respond_to(:section) }
   it { should respond_to(:posts) }
   it { should respond_to(:password_hashes) }
+  it { should respond_to(:sub_id) }
   it { should respond_to(:created_at) }
   it { should respond_to(:updated_at) }
   it { should be_valid }
@@ -137,6 +138,20 @@ describe Topic do
       it { should be_valid }
       its(:password_hashes) { should have(1).hashstring }
       it { 2.times { |i| @topic.posts[1+i].poster_id.should == nil } }
+    end
+  end
+
+  describe "when there is another topic" do
+    describe "in the same section" do
+      before { @topic2 = FactoryGirl.create(:topic) }
+      its(:sub_id) { should == 1 }
+      it { @topic2.sub_id.should == 2 }
+    end
+
+    describe "in a different section" do
+      before { @topic2 = FactoryGirl.create(:topic, section: 'other') }
+      its(:sub_id) { should == 1 }
+      it { @topic2.sub_id.should == 1 }
     end
   end
 

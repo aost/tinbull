@@ -8,6 +8,7 @@ Spork.prefork do
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
   include ActionView::Helpers::DateHelper
+  ENV['BROWSER'] = 'google-chrome'
 end
 
 Spork.each_run do

@@ -1,8 +1,8 @@
 <li>
   <p class="topic-post-count"><%= topic.posts.length %></p>
-  <%= link_to topic.name, topic.id.to_s, class: 'topic-title' %>
+  <%= link_to topic.name, "~#{topic.section}/#{topic.sub_id}", class: 'topic-title' %>
   <div class="topic-info">
-    <p><%= time_ago_in_words(topic.updated_at) %> - <%= time_ago_in_words(topic.created_at) %> ago</p>
+    <p><%= time_ago(topic) %></p>
     <%= link_to '~'+topic.section, '~'+topic.section %>
     <br />
   </div>

@@ -3,6 +3,8 @@ class Topic < ActiveRecord::Base
 
   has_many :posts
 
+  self.per_page = 25
+
   def text= t
     if t.blank?
       self[:text] = nil 
@@ -22,6 +24,11 @@ class Topic < ActiveRecord::Base
     end
     hashes.delete(nil)
     hashes.uniq
+  end
+
+  def sub_id
+    section_topics = Topic.where(section: section)
+    section_topics.index(self) + 1
   end
 
   validates :name, presence: true, length: { maximum: 120 }

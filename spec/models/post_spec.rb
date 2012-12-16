@@ -56,7 +56,7 @@ describe Post do
     describe "is a topic" do
       before { @post.topic = FactoryGirl.create(:topic) }
       it { should be_valid }
-      it "should touch the topic" do
+      it "should touch the topic on post save" do
         @post.topic.should_receive :touch
         @post.save
       end
