@@ -1,5 +1,5 @@
 <li>
-  <p class="topic-post-count"><%= topic.posts.length %></p>
+  <div class="topic-post-count"><%= topic.posts.length %></div>
   <%= link_to topic.name, "~#{topic.section}/#{topic.sub_id}", class: 'topic-title' %>
   <div class="topic-info">
     <p><%= time_ago(topic) %></p>

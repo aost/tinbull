@@ -16,3 +16,6 @@
 
 # Ignore binaries.
 /bin
+
+# Ignore conceptual work.
+/concept

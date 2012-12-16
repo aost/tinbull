@@ -1,0 +1,25 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 480px;
+  margin: auto;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+#logo {
+  padding: 1em;
+}
+
+#ad {
+  width: 468px;
+  height: 72px;
+  border: 1px solid black;
+  margin: auto;
+  text-align: center;
+  line-height: 72px;
+  background: #CCC;
+}
+
+#copyright {
+  text-align: center;
+}

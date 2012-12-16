@@ -17,7 +17,7 @@ describe "Topic pages" do
 
       it "should have an element for each topic" do
         Topic.paginate(page: 1).each do |topic|
-          page.should have_selector('li p', text: topic.posts.length.to_s)
+          page.should have_selector('li div', text: topic.posts.length.to_s)
           page.should have_selector('li a', text: topic.name)
           page.should have_selector('li a', text: topic.section)
           page.should have_selector('li p', 
@@ -42,7 +42,7 @@ describe "Topic pages" do
         describe "has 0 posts" do
           before { visit topics_path }
 
-          it { should have_selector('li p', text: '0') }
+          it { should have_selector('li div', text: '0') }
           it "should not have a time range" do
             page.should_not have_selector('li p', text: "\u2013")
           end
@@ -54,10 +54,7 @@ describe "Topic pages" do
             visit topics_path
           end
 
-          it { should have_selector('li p', text: '1') }
-          it "should have a time range" do
-            page.should have_selector('li p', text: "\u2013")
-          end
+          it { should have_selector('li div', text: '1') }
         end
       end
     end

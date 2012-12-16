@@ -1,3 +1,55 @@
-// Place all the styles related to the Topics controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#navigation {
+  padding: 1em;
+
+  #section {
+    font-size: 1.4em;
+    float: left;
+  }
+
+  #sort {
+    font-size: 1.4em;
+    float: right;
+  }
+
+  .current {
+    font-weight: bold;
+  }
+}
+
+#topics {
+  padding: 1em;
+  list-style: none;
+
+  li {
+    padding-bottom: 1.2em;
+
+    .topic-post-count {
+      float: left;
+      width: 2em;
+      border: 1px solid black;
+      margin-right: .5em;
+      text-align: center;
+    }
+
+    .topic-title {
+      font-size: 1.2em;
+    }
+
+    .topic-info {
+      padding-top: .5em;
+
+      p {
+        float: left;
+        color: #999;
+      }
+
+      a {
+        float: right;
+      }
+
+      br {
+        clear: both;
+      }
+    }
+  }
+}
