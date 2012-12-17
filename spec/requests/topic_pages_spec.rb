@@ -55,8 +55,39 @@ describe "Topic pages" do
           end
 
           it { should have_selector('li div', text: '1') }
+
+          it "should have a time range"
         end
       end
     end
   end
+
+  describe "index (with section)" do
+    before { visit topics_path('arbitrary') }
+
+    it { should have_selector('title', text: "~arbitrary | Tin Bull") }
+    it { should have_selector('div a', text: "~arbitrary") }
+  end
+
+  describe "show" do
+    before do
+      @topic = FactoryGirl.create(:topic, name: "What is this fish?", 
+                                          section: 'marinebiology')
+      visit topic_path(section: 'marinebiology', id: 1)
+    end
+
+    it { should have_selector('title', text: "fish") }
+    it { should have_selector('h1', text: "fish") }
+
+    describe "with text" do
+      before do
+        @topic.text = "I don't know what fish this is."
+        @topic.save
+        visit topic_path(section: 'marinebiology', id: 1)
+      end
+
+      it { should have_selector('p', text: "fish") }
+    end
+  end
+
 end

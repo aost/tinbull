@@ -8,4 +8,16 @@ module TopicsHelper
       "#{create_time} ago"
     end
   end
+
+  def time(topic)
+    [topic.updated_at, topic.created_at].uniq.join(" \u2013 ")
+  end
+
+  def page_section
+    if !params[:section]
+      "All topics"
+    else
+      '~'+params[:section]
+    end
+  end
 end

@@ -1,4 +1,4 @@
 Tinbull::Application.routes.draw do
-  root to: 'topics#index', as: :topics
-  #match "~" => "sections#index", as: :sections
+  match '/(~:section)' => 'topics#index', as: :topics
+  match '/~:section/:id' => 'topics#show', as: :topic
 end
