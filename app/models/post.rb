@@ -9,8 +9,8 @@ class Post < ActiveRecord::Base
 
   def password= p
     if p
-      # TODO: Implement real salt and more secure hash function
-      self.password_hash = Digest::SHA1.hexdigest("salty" + p) 
+      # TODO: Implement real salt
+      self.password_hash = Digest::SHA256.base64digest("salty" + p) 
     else
       self.password_hash = nil
     end
