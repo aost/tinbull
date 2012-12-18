@@ -65,6 +65,11 @@ describe Post do
         @post.text.should == 
           "<p><pre>destroy_all_who_oppose(self)</pre>\n<pre>return !prisoners</pre></p>"
       end
+
+      it "should seperate paragraphs" do
+        @post.text = "one paragraph.\n\ntwo paragraph!\nstill two paragraph."
+        @post.text.should == "<p>one paragraph</p>\n\n<p>two paragraph!\nstill two paragraph</p>"
+      end
     end
   end
 

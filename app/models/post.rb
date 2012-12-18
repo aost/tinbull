@@ -66,8 +66,8 @@ class Post < ActiveRecord::Base
     text.gsub!(/(\d+)\.\s(.*)/, '<li value="\1">\2</li>')
     text.gsub!(/(<li value.*<\/li>)/m, '<ol>\1</ol>')
 
+    text.gsub!(/(.+)(\n\n)?/, '<p>\1</p>') # make paragraph
     text.gsub!("\uE000") { |m| monotext.shift } # restore monospace text
-    text = "<p>" + text + "</p>" # make paragraph
 
     text
   end
