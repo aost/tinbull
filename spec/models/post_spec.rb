@@ -22,6 +22,50 @@ describe Post do
       before { @post.text = "String!" }
       it { should be_valid }
     end
+
+    describe "is a string with markup" do
+      it "should wrap in at least one p tag" do
+        @post.text = "I am technically a paragraph."
+        @post.text.should == "<p>I am technically a paragraph.</p>"
+      end
+
+      it "should italicize" do
+        @post.text = "/So/ ignorant."
+        @post.text.should == "<p><i>So</i> ignorant.</p>"
+      end
+
+      it "should embolden" do
+        @post.text = "You are *wrong*."
+        @post.text.should == "<p>You are <b>wrong</b>.</p>"
+      end
+
+      it "should underline" do
+        @post.text = "Click _here_. Haha, gotcha."
+        @post.text.should == "<p>Click <u>here</u>. Haha, gotcha.</p>"
+      end
+
+      it "should make links" do
+        @post.text = "Click [here|http://shocking.com] instead."
+        @post.text.should == 
+          '<p>Click <a href="http://shocking.com">here</a> instead.</p>'
+      end
+
+      it "should make ordered lists" do
+        @post.text = "1. Is this a list?\n2. I think so!\n33. Yep."
+        @post.text.should == "<p><ol><li value=\"1\">Is this a list?</li>\n<li value=\"2\">I think so!</li>\n<li value=\"33\">Yep.</li></ol></p>"
+      end
+
+      it "should make unordered lists" do
+        @post.text = "* Oh look...\n* Another list!"
+        @post.text.should == "<p><ul><li>Oh look...</li>\n<li>Another list!</li></ul></p>"
+      end
+
+      it "should make monospace text" do
+        @post.text = "  destroy_all_who_oppose(self)\n  return !prisoners"
+        @post.text.should == 
+          "<p><pre>destroy_all_who_oppose(self)</pre>\n<pre>return !prisoners</pre></p>"
+      end
+    end
   end
 
   describe "when password" do
