@@ -8,7 +8,7 @@ FactoryGirl.define do
   end
 
   factory :post do
-    text "A miserable pile of secrets!"
+    text "A miserable little pile of secrets!"
     topic
   end
 end

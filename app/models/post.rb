@@ -2,6 +2,7 @@ require 'digest'
 
 class Post < ActiveRecord::Base
   attr_accessible :text, :password
+  attr_reader :password
 
   belongs_to :topic, touch: true
   belongs_to :parent, class_name: "Post"
@@ -9,13 +10,15 @@ class Post < ActiveRecord::Base
 
   validates :text, presence: true, length: { maximum: 5000 }
   validates :topic, presence: true
+  validates :password, length: { maximum: 128 }
 
   def password= p
     if p
+      @password = p
       # TODO: Implement real salt
       self.password_hash = Digest::SHA256.base64digest("salty" + p) 
     else
-      self.password_hash = nil
+      @password = self.password_hash = nil
     end
   end
 

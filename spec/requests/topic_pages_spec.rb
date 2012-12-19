@@ -59,15 +59,16 @@ describe "Topic pages" do
           it "should have a time range"
         end
       end
+
+      describe "with section" do
+        before { visit topics_path('arbitrary') }
+
+        it { should have_selector('title', text: "~arbitrary | Tin Bull") }
+        it { should have_selector('div a', text: "~arbitrary") }
+      end
     end
   end
 
-  describe "index (with section)" do
-    before { visit topics_path('arbitrary') }
-
-    it { should have_selector('title', text: "~arbitrary | Tin Bull") }
-    it { should have_selector('div a', text: "~arbitrary") }
-  end
 
   describe "show" do
     before do
@@ -78,16 +79,15 @@ describe "Topic pages" do
 
     it { should have_selector('title', text: "fish") }
     it { should have_selector('h1', text: "fish") }
-
-    describe "with text" do
-      before do
-        @topic.text = "I don't know what fish this is."
-        @topic.save
-        visit topic_path(section: 'marinebiology', id: 1)
-      end
-
-      it { should have_selector('p', text: "fish") }
-    end
   end
 
+  describe "new" do
+    before { visit new_topic_path }
+    
+    it { should have_selector('title', text: "New topic | Tin Bull") }
+    it { should have_selector('h1', text: "New topic") }
+    it { should have_selector('form') }
+    it { should have_selector("input[id='topic_name']") }
+    it { should have_selector("input[id='post_text']") }
+  end
 end

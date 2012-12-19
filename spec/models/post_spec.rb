@@ -98,6 +98,14 @@ describe Post do
         it { @post.topic.password_hashes.should include @post.password_hash }
         its(:poster_id) { should == 'A' }
       end
+
+      describe "with over 128 characters" do
+        before do
+          @post.password = '?'*129
+          @post.save
+        end
+        it { should_not be_valid }
+      end
     end
   end
 

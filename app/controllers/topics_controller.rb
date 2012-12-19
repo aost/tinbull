@@ -13,4 +13,14 @@ class TopicsController < ApplicationController
     @topic = topics.at(params[:id].to_i - 1)
     @title = @topic.name
   end
+
+  def new
+    @topic = Topic.new
+    @title = "New topic"
+  end
+
+  def create
+    @topic = Topic.new(params[:topic])
+    post = @topic.posts.build
+  end
 end

@@ -5,7 +5,6 @@ describe Topic do
   subject { @topic }
 
   it { should respond_to(:name) }
-  it { should respond_to(:text) }
   it { should respond_to(:section) }
   it { should respond_to(:posts) }
   it { should respond_to(:password_hashes) }
@@ -42,8 +41,8 @@ describe Topic do
       it { should be_valid }
     end
 
-    describe "is longer than 16 characters" do
-      before { @topic.section = 'a'*17 }
+    describe "is longer than 20 characters" do
+      before { @topic.section = 'a'*21 }
       it { should_not be_valid }
     end
 

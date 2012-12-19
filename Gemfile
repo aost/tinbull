@@ -10,11 +10,11 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'guard-rspec'
+  gem 'factory_girl_rails'
 end 
 
 group :test do
   gem 'capybara', '1.1.3'
-  gem 'factory_girl_rails'
   gem 'guard-spork'
   gem 'spork'
   gem 'rb-inotify'

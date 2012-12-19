@@ -2,9 +2,10 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :section
 
   has_many :posts
+  accepts_nested_attributes_for :posts
 
   validates :name, presence: true, length: { maximum: 120 }
-  validates :section, presence: true, length: { maximum: 16 }, 
+  validates :section, presence: true, length: { maximum: 20 }, 
                       format: { with: /\A[a-z0-9]+\Z/ } # lowercase alphanumeric
   validate :has_posts?
 
