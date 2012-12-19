@@ -44,10 +44,15 @@ describe Post do
         @post.text.should == "<p>Click <u>here</u>. Haha, gotcha.</p>"
       end
 
-      it "should make links" do
-        @post.text = "Click [here|http://shocking.com] instead."
+      it "should make named links" do
+        @post.text = "Click [here|http://shocking.com/gasp/] instead."
         @post.text.should == 
-          '<p>Click <a href="http://shocking.com">here</a> instead.</p>'
+          '<p>Click <a href="http://shocking.com/gasp/">here</a> instead.</p>'
+      end
+
+      it "should make unnamed links" do
+        @post.text = "Feeling down? Try http://scenemusic.net, it's neato."
+        @post.text.should == "<p>Feeling down? Try <a href=\"http://scenemusic.net\">http://scenemusic.net</a>, it's neato.</p>"
       end
 
       it "should make ordered lists" do
@@ -67,8 +72,8 @@ describe Post do
       end
 
       it "should seperate paragraphs" do
-        @post.text = "one paragraph.\n\ntwo paragraph!\nstill two paragraph."
-        @post.text.should == "<p>one paragraph</p>\n\n<p>two paragraph!\nstill two paragraph</p>"
+        @post.text = "one paragraph.\n\ntwo paragraph!\nstill two paragraph.\n\nthree paragraph."
+        @post.text.should == "<p>one paragraph.</p><p>two paragraph!\nstill two paragraph.</p><p>three paragraph.</p>"
       end
     end
   end

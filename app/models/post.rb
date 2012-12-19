@@ -46,17 +46,31 @@ class Post < ActiveRecord::Base
 
     # monospace text
     text.gsub!(/^\s{2}(.*?)$/, '<pre>\1</pre>')
-    # protect it
+    # preserve monospace text
     monotext = []
     text.gsub!(/<pre>.*?<\/pre>/) do |m| 
       monotext << m
       "\uE000"
     end
 
+    # preserve urls
+    urls = []
+    text.gsub!(/\w+:\/\/[\S]*/) do |m|
+      urls << m
+      "\uE001"
+    end
+
     text.gsub!(/\/(.+?)\//, '<i>\1</i>') # italic text
     text.gsub!(/\*(.+?)\*/, '<b>\1</b>') # bold text
     text.gsub!(/_(.+?)_/, '<u>\1</u>') # underlined text
-    text.gsub!(/\[(.+?)\|(.+?)\]/, '<a href="\2">\1</a>') # links
+
+    text.gsub!("\uE001") { |m| urls.shift } # restore urls
+    named_links = []
+    text.gsub!(/\[(.+?)\|(.+?)\]/) do |m| # named links 
+      named_links << "<a href=\"$2\">$1</a>" # preserve
+      "\uE002"
+    end
+    text.gsub!("\uE002") { |m| named_links.shift }
 
     # unordered lists
     text.gsub!(/\*\s(.+)/, '<li>\1</li>')
@@ -66,7 +80,7 @@ class Post < ActiveRecord::Base
     text.gsub!(/(\d+)\.\s(.*)/, '<li value="\1">\2</li>')
     text.gsub!(/(<li value.*<\/li>)/m, '<ol>\1</ol>')
 
-    text.gsub!(/(.+)(\n\n)?/, '<p>\1</p>') # make paragraph
+    text.gsub!(/(.+?)(\n{2}|\z)/m, '<p>\1</p>') # make paragraphs
     text.gsub!("\uE000") { |m| monotext.shift } # restore monospace text
 
     text
