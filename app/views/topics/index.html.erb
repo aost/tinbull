@@ -1,6 +1,6 @@
 <div id="navigation">
   <a id="section" href="/~"><%= page_section %></a>
-  <div id="sort"><a id="popular" class="current" href="?sort=popular">Popular</a> / <a id="fresh" href="?sort=fresh">Fresh</a></div>
+  <div id="sort"><a id="popular" <% if params[:sort] != 'fresh' %>class="current" <% end %>href="?sort=popular">Popular</a> / <a id="fresh" <% if params[:sort] == 'fresh' %>class="current" <% end %>href="?sort=fresh">Fresh</a></div>
   <br />
 </div>
 
