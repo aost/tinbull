@@ -9,3 +9,5 @@
 </ul>
 
 <%= will_paginate %>
+
+<a id="new-topic" href=<% if params[:section] %>"/~<%= params[:section] %>/new" <% else %>"/new"<% end %>>New topic</a>

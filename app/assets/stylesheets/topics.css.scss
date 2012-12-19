@@ -1,23 +1,13 @@
 #navigation {
-  padding: 1em;
-
-  #section {
-    font-size: 1.4em;
-    float: left;
-  }
-
-  #sort {
-    font-size: 1.4em;
-    float: right;
-  }
-
-  .current {
-    font-weight: bold;
-  }
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-size: 1.4em;
+  #section { float: left; }
+  #sort { float: right; }
+  .current { font-weight: bold; }
 }
 
 #topics {
-  padding: 1em;
   list-style: none;
 
   li {
@@ -52,4 +42,9 @@
       }
     }
   }
+}
+
+#new-topic {
+  font-size: 1.4em;
+  padding-top: 1em;
 }

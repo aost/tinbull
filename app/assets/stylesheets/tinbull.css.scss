@@ -1,29 +1,39 @@
+$gray: #AAA;
+$darkgray: #999;
+
+html { 
+  height: 100%;
+  background-color: $gray;
+}
+
 body {
   font-family: Arial, sans-serif;
-  width: 480px;
+  max-width: 960px;
   margin: auto;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  height: 100%;
+  background-color: white;
+}
+
+#foreground {
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+  height: 100%;
 }
 
 #logo {
-  padding: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
-#ad {
-  width: 468px;
-  height: 72px;
-  margin: auto;
-  text-align: center;
-  line-height: 72px;
-  background: #CCC;
-}
-
-#copyright {
+footer {
   text-align: center;
   font-size: .9em;
-  color: #999;
-    a {
-      color: #999;
-    }
+  color: $gray;
+  a { color: $darkgray; }
+  #copyright {
+    padding-top: 2em;
+    padding-bottom: .5em; 
+  }
 }
