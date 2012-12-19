@@ -3,6 +3,11 @@ class Topic < ActiveRecord::Base
 
   has_many :posts
 
+  validates :name, presence: true, length: { maximum: 120 }
+  validates :text, length: { maximum: 5000 }
+  validates :section, presence: true, length: { maximum: 16 }, 
+                      format: { with: /\A[a-z0-9]+\Z/ } # lowercase alphanumeric
+
   self.per_page = 25
 
   def text= t
@@ -31,8 +36,4 @@ class Topic < ActiveRecord::Base
     section_topics.index(self) + 1
   end
 
-  validates :name, presence: true, length: { maximum: 120 }
-  validates :text, length: { maximum: 5000 }
-  validates :section, presence: true, length: { maximum: 16 }, 
-                      format: { with: /\A[a-z0-9]+\Z/ } # lowercase alphanumeric
 end

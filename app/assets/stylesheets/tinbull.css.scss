@@ -28,12 +28,13 @@ body {
 }
 
 footer {
+  padding-top: 2em;
+  padding-bottom: 1em;
   text-align: center;
   font-size: .9em;
   color: $gray;
   a { color: $darkgray; }
   #copyright {
-    padding-top: 2em;
     padding-bottom: .5em; 
   }
 }

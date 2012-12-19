@@ -26,54 +26,49 @@ describe Post do
     describe "is a string with markup" do
       it "should wrap in at least one p tag" do
         @post.text = "I am technically a paragraph."
-        @post.text.should == "<p>I am technically a paragraph.</p>"
+        @post.html.should == "<p>I am technically a paragraph.</p>"
       end
 
       it "should italicize" do
         @post.text = "/So/ ignorant."
-        @post.text.should == "<p><i>So</i> ignorant.</p>"
+        @post.html.should == "<p><i>So</i> ignorant.</p>"
       end
 
       it "should embolden" do
         @post.text = "You are *wrong*."
-        @post.text.should == "<p>You are <b>wrong</b>.</p>"
-      end
-
-      it "should underline" do
-        @post.text = "Click _here_. Haha, gotcha."
-        @post.text.should == "<p>Click <u>here</u>. Haha, gotcha.</p>"
+        @post.html.should == "<p>You are <b>wrong</b>.</p>"
       end
 
       it "should make named links" do
         @post.text = "Click [here|http://shocking.com/gasp/] instead."
-        @post.text.should == 
+        @post.html.should == 
           '<p>Click <a href="http://shocking.com/gasp/">here</a> instead.</p>'
       end
 
       it "should make unnamed links" do
         @post.text = "Feeling down? Try http://scenemusic.net, it's neato."
-        @post.text.should == "<p>Feeling down? Try <a href=\"http://scenemusic.net\">http://scenemusic.net</a>, it's neato.</p>"
+        @post.html.should == "<p>Feeling down? Try <a href=\"http://scenemusic.net\">http://scenemusic.net</a>, it's neato.</p>"
       end
 
       it "should make ordered lists" do
         @post.text = "1. Is this a list?\n2. I think so!\n33. Yep."
-        @post.text.should == "<p><ol><li value=\"1\">Is this a list?</li>\n<li value=\"2\">I think so!</li>\n<li value=\"33\">Yep.</li></ol></p>"
+        @post.html.should == "<p><ol><li value=\"1\">Is this a list?</li>\n<li value=\"2\">I think so!</li>\n<li value=\"33\">Yep.</li></ol></p>"
       end
 
       it "should make unordered lists" do
         @post.text = "* Oh look...\n* Another list!"
-        @post.text.should == "<p><ul><li>Oh look...</li>\n<li>Another list!</li></ul></p>"
+        @post.html.should == "<p><ul><li>Oh look...</li>\n<li>Another list!</li></ul></p>"
       end
 
       it "should make monospace text" do
         @post.text = "  destroy_all_who_oppose(self)\n  return !prisoners"
-        @post.text.should == 
+        @post.html.should == 
           "<p><pre>destroy_all_who_oppose(self)</pre>\n<pre>return !prisoners</pre></p>"
       end
 
       it "should seperate paragraphs" do
         @post.text = "one paragraph.\n\ntwo paragraph!\nstill two paragraph.\n\nthree paragraph."
-        @post.text.should == "<p>one paragraph.</p><p>two paragraph!\nstill two paragraph.</p><p>three paragraph.</p>"
+        @post.html.should == "<p>one paragraph.</p><p>two paragraph!\nstill two paragraph.</p><p>three paragraph.</p>"
       end
     end
   end

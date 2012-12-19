@@ -7,9 +7,8 @@ class Post < ActiveRecord::Base
   belongs_to :parent, class_name: "Post"
   has_many :children, class_name: "Post", foreign_key: "parent_id"
 
-  def text= t
-    self[:text] = tinbullic_to_html(t)
-  end
+  validates :text, presence: true
+  validates :topic, presence: true
 
   def password= p
     if p
@@ -25,8 +24,9 @@ class Post < ActiveRecord::Base
     alphabase(decimal_id) if decimal_id
   end
 
-  validates :text, presence: true
-  validates :topic, presence: true
+  def html
+    tinbullic_to_html(text)
+  end
 
   private
 
@@ -62,15 +62,16 @@ class Post < ActiveRecord::Base
 
     text.gsub!(/\/(.+?)\//, '<i>\1</i>') # italic text
     text.gsub!(/\*(.+?)\*/, '<b>\1</b>') # bold text
-    text.gsub!(/_(.+?)_/, '<u>\1</u>') # underlined text
 
     text.gsub!("\uE001") { |m| urls.shift } # restore urls
     named_links = []
     text.gsub!(/\[(.+?)\|(.+?)\]/) do |m| # named links 
-      named_links << "<a href=\"$2\">$1</a>" # preserve
+      named_links << "<a href=\"#{$2}\">#{$1}</a>" # preserve
       "\uE002"
     end
-    text.gsub!("\uE002") { |m| named_links.shift }
+    text.gsub!(/(?!\|)\w+:\/\/.+?\.\w{2,3}[^\s\.?!,)]*/, 
+      '<a href="\0">\0</a>') # unnamed links
+    text.gsub!("\uE002") { |m| named_links.shift } # restore named links
 
     # unordered lists
     text.gsub!(/\*\s(.+)/, '<li>\1</li>')
