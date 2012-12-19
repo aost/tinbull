@@ -31,28 +31,6 @@ describe Topic do
     end
   end
 
-  describe "when text" do
-    describe "is nil" do
-      before { @topic.text = nil }
-      it { should be_valid }
-    end
-
-    describe "is blank" do
-      before { @topic.text = " " }
-      its(:text) { should == nil }
-    end
-
-    describe "is a string" do
-      before { @topic.text = "The first one was better." }
-      it { should be_valid }
-    end
-
-    describe "is over 5000 characters" do
-      before { @topic.text = 'a'*5001 }
-      it { should_not be_valid }
-    end
-  end
-
   describe "when section" do
     describe "is blank" do
       before { @topic.section = ' ' }
@@ -85,6 +63,21 @@ describe Topic do
     end
   end
 
+  describe "when posts" do
+    describe "has 0 items" do
+      before { @topic.posts.clear }
+      it { should_not be_valid }
+    end
+
+    describe "has 1 item" do
+      before do
+        @topic.posts.clear
+        @topic.posts << FactoryGirl.create(:post)
+      end
+      it { should be_valid }
+    end
+  end
+
   describe "when password_hashes" do
     describe "is called" do
       before { @ph = @topic.password_hashes }
@@ -92,8 +85,9 @@ describe Topic do
     end
   end
 
-  describe "when passworded post is added" do
+  describe "with a passworded post" do
     before do
+      @topic.posts.clear
       @topic.posts << FactoryGirl.create(:post, password: 'loafly')
     end
     it { should be_valid }

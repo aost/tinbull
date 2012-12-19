@@ -17,7 +17,7 @@ describe "Topic pages" do
 
       it "should have an element for each topic" do
         Topic.paginate(page: 1).each do |topic|
-          page.should have_selector('li div', text: topic.posts.length.to_s)
+          page.should have_selector('li div', text: (topic.posts.length-1).to_s)
           page.should have_selector('li a', text: topic.name)
           page.should have_selector('li a', text: topic.section)
           page.should have_selector('li p', 
@@ -39,23 +39,23 @@ describe "Topic pages" do
       end
 
       describe "when topic" do
-        describe "has 0 posts" do
+        describe "has 1 post" do
           before { visit topics_path }
 
           it { should have_selector('li div', text: '0') }
+
           it "should not have a time range" do
             page.should_not have_selector('li p', text: "\u2013")
           end
         end
 
-        describe "has 1 post" do
+        describe "has 2 posts" do
           before do 
             @topic.posts << FactoryGirl.create(:post, topic: @topic)
             visit topics_path
           end
 
           it { should have_selector('li div', text: '1') }
-
           it "should have a time range"
         end
       end

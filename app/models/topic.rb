@@ -1,22 +1,14 @@
 class Topic < ActiveRecord::Base
-  attr_accessible :name, :text, :section
+  attr_accessible :name, :section
 
   has_many :posts
 
   validates :name, presence: true, length: { maximum: 120 }
-  validates :text, length: { maximum: 5000 }
   validates :section, presence: true, length: { maximum: 16 }, 
                       format: { with: /\A[a-z0-9]+\Z/ } # lowercase alphanumeric
+  validate :has_posts?
 
   self.per_page = 25
-
-  def text= t
-    if t.blank?
-      self[:text] = nil 
-    else
-      self[:text] = t
-    end
-  end
 
   def section= s
     self[:section] = s.downcase
@@ -36,4 +28,9 @@ class Topic < ActiveRecord::Base
     section_topics.index(self) + 1
   end
 
+  private
+  
+  def has_posts?
+    errors.add(:posts, "must have at least one post") if posts.empty?
+  end
 end

@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   belongs_to :parent, class_name: "Post"
   has_many :children, class_name: "Post", foreign_key: "parent_id"
 
-  validates :text, presence: true
+  validates :text, presence: true, length: { maximum: 5000 }
   validates :topic, presence: true
 
   def password= p

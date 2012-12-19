@@ -23,6 +23,11 @@ describe Post do
       it { should be_valid }
     end
 
+    describe "is a string with over 5000 characters" do
+      before { @post.text = 'a'*5001 }
+      it { should_not be_valid }
+    end
+
     describe "is a string with markup" do
       it "should wrap in at least one p tag" do
         @post.text = "I am technically a paragraph."
