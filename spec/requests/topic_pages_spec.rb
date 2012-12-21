@@ -88,6 +88,8 @@ describe "Topic pages" do
     it { should have_selector('h1', text: "New topic") }
     it { should have_selector('form') }
     it { should have_selector("input[id='topic_name']") }
-    it { should have_selector("input[id='post_text']") }
+    it { should have_selector("input[id='topic_section']") }
+    it { should have_selector("textarea[id='topic_posts_attributes_0_text']") }
+    it { should have_selector("input[id='topic_posts_attributes_0_password']") }
   end
 end

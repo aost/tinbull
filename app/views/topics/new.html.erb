@@ -1,9 +1,10 @@
 <h1>New topic</h1>
-<%= form_for @topic, url: { action: 'create' } do |ft| %>
-  <%= ft.text_field :name %>
-  <%= ft.fields_for :posts do |fp| %>
-    <%= fp.text_area :text %>
-    <%= fp.text_field :password %>
+<%= form_for @topic, url: { action: 'create' } do |tf| %>
+  <%= tf.text_field :name %>
+  <%= tf.text_field :section %>
+  <%= tf.fields_for :posts, @topic.posts.build do |pf| %>
+    <%= pf.text_area :text %>
+    <%= pf.text_field :password %>
   <% end %>
-  <%= ft.submit %>
+  <%= tf.submit %>
 <% end %>
