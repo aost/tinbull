@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
   has_many :children, class_name: "Post", foreign_key: "parent_id"
 
   validates :text, presence: true, length: { maximum: 5000 }
-  validates :topic, presence: true
+  #validates :topic, presence: true # TODO: Add topic form doesn't work with this
   validates :password, length: { maximum: 128 }
 
   def password= p

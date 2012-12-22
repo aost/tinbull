@@ -1,7 +1,7 @@
 class Topic < ActiveRecord::Base
-  attr_accessible :name, :section
+  attr_accessible :name, :section, :posts_attributes
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
   accepts_nested_attributes_for :posts
 
   validates :name, presence: true, length: { maximum: 120 }

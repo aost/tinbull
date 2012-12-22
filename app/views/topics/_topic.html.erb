@@ -1,10 +1,10 @@
 <li>
   <div class="topic-post-count"><%= topic.posts.length - 1 %></div>
-  <%= link_to topic.name, "~#{topic.section}/#{topic.sub_id}", class: 'topic-title' %>
+  <%= link_to topic.name, "~#{topic.section}/#{topic.sub_id}", class: 'topic-title', title: topic.posts[0].text %>
+      <%= link_to '~'+topic.section, '~'+topic.section %>
   <div class="topic-info">
     <p title="<%= time(topic) %>"><%= time_ago(topic) %></p>
     <% if !params[:section] %>
-      <%= link_to '~'+topic.section, '~'+topic.section %>
     <% end %>
     <br />
   </div>

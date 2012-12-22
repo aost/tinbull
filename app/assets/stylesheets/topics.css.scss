@@ -45,7 +45,25 @@ $gray: #AAA;
   }
 }
 
+form {
+  input, textarea { 
+    display: block; 
+    margin-bottom: .5em;
+  }
+  textarea { height: 7em; }
+  span {
+    float: left;
+    padding-top: .2em;
+    padding-right: .2em;
+  }
+}
+
 #new-topic {
   font-size: 1.4em;
-  padding-top: 1em;
+  margin-top: 1em;
+}
+
+#new-topic-header {
+  font-size: 1.4em;
+  margin-bottom: 0.6em;
 }

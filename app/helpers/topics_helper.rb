@@ -10,12 +10,16 @@ module TopicsHelper
   end
 
   def time(topic)
-    [topic.updated_at, topic.created_at].uniq.join(" \u2013 ")
+    if topic.posts.length == 1
+      topic.created_at
+    else
+      [topic.updated_at, topic.created_at].join(" \u2013 ")
+    end
   end
 
   def page_section
     if !params[:section]
-      "All topics"
+      "All sections"
     else
       '~'+params[:section]
     end

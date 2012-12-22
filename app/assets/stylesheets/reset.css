@@ -93,3 +93,8 @@ hr {
 input, select {
     vertical-align:middle;
 }
+
+input, textarea {
+    border: 1px solid black;
+    margin-top: .3em;
+}

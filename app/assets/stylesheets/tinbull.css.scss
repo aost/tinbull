@@ -8,12 +8,12 @@ html {
 
 body {
   font-family: Arial, sans-serif;
-  max-width: 960px;
+  max-width: 800px;
   min-width: 300px;
   margin: auto;
+  height: 100%;
   border-left: 2px solid black;
   border-right: 2px solid black;
-  height: 100%;
   background-color: white;
 }
 
@@ -24,8 +24,8 @@ body {
 }
 
 #logo {
-  padding-top: 1em;
-  padding-bottom: 2em;
+  margin-top: 1em;
+  margin-bottom: 2em;
 }
 
 footer {

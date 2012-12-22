@@ -10,15 +10,15 @@ describe "Topic pages" do
 
     describe "with 26 topics" do
       before do
-        FactoryGirl.create(:topic, name: "I'm different!", section: 'unique')
         25.times { FactoryGirl.create :topic }
+        FactoryGirl.create(:topic, name: "I'm different!", section: 'unique')
         visit topics_path
       end
 
       it "should have an element for each topic" do
         Topic.paginate(page: 1).each do |topic|
           page.should have_selector('li div', text: (topic.posts.length-1).to_s)
-          page.should have_selector('li a', text: topic.name)
+          page.should have_selector('li a[class="topic-title"]', text: topic.name)
           page.should have_selector('li a', text: topic.section)
           page.should have_selector('li p', 
             text: time_ago_in_words(topic.updated_at))
@@ -74,11 +74,23 @@ describe "Topic pages" do
     before do
       @topic = FactoryGirl.create(:topic, name: "What is this fish?", 
                                           section: 'marinebiology')
+      @topic.posts[0].text = "It looks almost like it's not a fish."
+      @topic.posts[0].password = "mlh"
+      @topic.save!
       visit topic_path(section: 'marinebiology', id: 1)
     end
 
-    it { should have_selector('title', text: "fish") }
-    it { should have_selector('h1', text: "fish") }
+    it { should have_selector('title', text: "this fish") }
+    it { should have_selector('h1', text: "this fish") }
+    it { should have_selector('p', text: "not a fish") }
+    #it { should have_selector('p', text: "A") }
+
+    describe "with a reply" do
+      before { @topic.posts.build(text: "I don't know.", password: "124") }
+
+      it { should have_selector('p', text: "I don't know.") }
+      it { should have_selector('p', text: "B") }
+    end
   end
 
   describe "new" do

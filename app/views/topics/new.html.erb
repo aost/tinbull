@@ -1,10 +1,14 @@
-<h1>New topic</h1>
-<%= form_for @topic, url: { action: 'create' } do |tf| %>
-  <%= tf.text_field :name %>
-  <%= tf.text_field :section %>
-  <%= tf.fields_for :posts, @topic.posts.build do |pf| %>
-    <%= pf.text_area :text %>
-    <%= pf.text_field :password %>
+<%= form_for @topic do |tf| %>
+  <% if @topic.errors.any? %>
+    <ul id="errors"><% @topic.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %></ul>
+  <% end %>
+  <%= tf.label :section %><%= tf.text_field :section %>
+  <%= tf.label :name, "Topic name" %><%= tf.text_field :name %>
+  <%= tf.fields_for :posts do |pf| %>
+    <%= pf.label :text %><%= pf.text_area :text %>
+    <%= pf.label :password %><%= pf.text_field :password, type: :password %>
   <% end %>
   <%= tf.submit %>
 <% end %>

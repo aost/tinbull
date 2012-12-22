@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   def index
     if !params[:section]
-      @topics = Topic.paginate(page: params[:page])
+      @topics = Topic.order('updated_at DESC').paginate(page: params[:page])
     else
       @topics = Topic.where(section: params[:section]).paginate(page: params[:page])
       @title = '~'+params[:section]
@@ -16,11 +16,16 @@ class TopicsController < ApplicationController
 
   def new
     @topic = Topic.new
+    @topic.posts.build
     @title = "New topic"
   end
 
   def create
     @topic = Topic.new(params[:topic])
-    @post = @topic.posts.build
+    if @topic.save
+      redirect_to action: :show, id: @topic.sub_id, section: @topic.section
+    else
+      render :new
+    end
   end
 end

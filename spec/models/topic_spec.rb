@@ -74,6 +74,19 @@ describe Topic do
         @topic.posts << FactoryGirl.create(:post)
       end
       it { should be_valid }
+
+      it "should autosave with topic" do
+        @topic.name = "Hello!"
+        @topic.posts[0].text = "How are you!"
+        @topic.save
+        @topic.posts[0].changed?.should == false
+      end
+
+      it "should be destroyed with the topic" do
+        post_id = @topic.posts[0].id
+        @topic.destroy
+        Post.where(id: 8).should be_empty
+      end
     end
   end
 
