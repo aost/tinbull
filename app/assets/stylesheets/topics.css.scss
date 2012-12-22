@@ -63,7 +63,38 @@ form {
   margin-top: 1em;
 }
 
-#new-topic-header {
-  font-size: 1.4em;
-  margin-bottom: 0.6em;
+.post-list {
+  padding-left: 1em;
+  list-style: none;
+
+  li {
+    margin-top: 1em;
+
+    .post-text {
+      line-height: 1.4em;
+
+      p {
+        margin-bottom: .5em;
+      }
+    }
+
+    .post-info {
+      margin-top: .5em;
+      font-size: .9em;
+
+      .poster-id {
+        font-weight: bold;
+        float: left;
+        margin-right: 0.5em;
+      }
+
+      .post-time {
+        color: $gray;
+      }
+    }
+  }
+}
+
+.root-post-list {
+  padding-left: 0;
 }

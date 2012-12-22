@@ -133,8 +133,9 @@ describe Post do
     end
 
     describe "is a post" do
-      before { @post.parent = FactoryGirl.create(:post) }
+      before { @post.parent = FactoryGirl.create(:post); @post.save }
       it { should be_valid }
+      its(:topic) { should == @post.parent.topic }
     end
 
     describe "is a topic" do

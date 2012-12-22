@@ -83,13 +83,27 @@ describe "Topic pages" do
     it { should have_selector('title', text: "this fish") }
     it { should have_selector('h1', text: "this fish") }
     it { should have_selector('p', text: "not a fish") }
-    #it { should have_selector('p', text: "A") }
+    it { should have_selector('p', text: "A") }
+    it { should have_selector('p', text: time_ago_in_words(@topic.posts[0].created_at)) }
 
     describe "with a reply" do
-      before { @topic.posts.build(text: "I don't know.", password: "124") }
+      before do
+        @reply = @topic.posts.create(text: "I don't know.", password: "124")
+        visit topic_path(section: 'marinebiology', id: 1)
+      end
 
       it { should have_selector('p', text: "I don't know.") }
       it { should have_selector('p', text: "B") }
+
+      describe "and a reply to that reply" do
+        before do
+          @topic.posts.create(text: "Ohoho", password: "124", parent: @reply)
+          visit topic_path(section: 'marinebiology', id: 1)
+        end
+
+        it { should have_selector('p', text: "Ohoho", count: 1) }
+        it { should have_selector('p', text: "B", count: 2) }
+      end
     end
   end
 
@@ -97,7 +111,6 @@ describe "Topic pages" do
     before { visit new_topic_path }
     
     it { should have_selector('title', text: "New topic | Tin Bull") }
-    it { should have_selector('h1', text: "New topic") }
     it { should have_selector('form') }
     it { should have_selector("input[id='topic_name']") }
     it { should have_selector("input[id='topic_section']") }

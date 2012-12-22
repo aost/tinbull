@@ -1,4 +1,2 @@
 <h1><%= @topic.name %></h1>
-<%= @topic.posts[0].html.html_safe %>
-
-<%= render @topic.posts %>
+<ul class="post-list root-post-list"><%= render partial: 'post', object: @topic.posts[0], locals: { zero: true } %><%= render partial: 'post', collection: @topic.posts.where(parent_id: nil).reverse[0..-2] %></ul>

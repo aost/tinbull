@@ -23,6 +23,10 @@ body {
     line-height:1;
 }
 
+h1 {
+  font-size: 1.4em;
+}
+
 article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section { 
     display:block;
@@ -97,4 +101,8 @@ input, select {
 input, textarea {
     border: 1px solid black;
     margin-top: .3em;
+}
+
+input, label {
+  font-size: 1em;
 }

@@ -1,7 +1,7 @@
 require 'digest'
 
 class Post < ActiveRecord::Base
-  attr_accessible :text, :password
+  attr_accessible :text, :password, :parent
   attr_reader :password
 
   belongs_to :topic, touch: true
@@ -11,6 +11,10 @@ class Post < ActiveRecord::Base
   validates :text, presence: true, length: { maximum: 5000 }
   #validates :topic, presence: true # TODO: Add topic form doesn't work with this
   validates :password, length: { maximum: 128 }
+
+  before_save do
+    self.topic = parent.topic if parent
+  end
 
   def password= p
     if p
