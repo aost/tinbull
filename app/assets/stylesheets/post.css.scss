@@ -1,0 +1,31 @@
+$gray: #AAA;
+
+.post-text {
+  line-height: 1.4em;
+
+  p {
+    margin-bottom: .8em;
+  }
+
+  ul {
+    margin-left: 2em;
+    list-style-type: square;
+
+    li { margin-top: 0; }
+  }
+}
+
+.post-info {
+  font-size: .9em;
+  margin-top: -.2em;
+
+  .poster-id {
+    font-weight: bold;
+    float: left;
+    margin-right: 0.5em;
+  }
+
+  .post-time {
+    color: $gray;
+  }
+}

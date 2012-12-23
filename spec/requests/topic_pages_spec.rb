@@ -8,9 +8,9 @@ describe "Topic pages" do
 
     it { should have_selector('title', text: "Tin Bull") }
 
-    describe "with 26 topics" do
+    describe "with 21 topics" do
       before do
-        25.times { FactoryGirl.create :topic }
+        20.times { FactoryGirl.create :topic }
         FactoryGirl.create(:topic, name: "I'm different!", section: 'unique')
         visit topics_path
       end

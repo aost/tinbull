@@ -60,6 +60,11 @@ describe Topic do
       before { @topic.section = 'fooBar' }
       its(:section) { should == 'foobar' }
     end
+
+    describe "starts with a squiggly" do
+      before { @topic.section = '~somesection' }
+      its(:section) { should == 'somesection' }
+    end
   end
 
   describe "when posts" do
@@ -87,6 +92,8 @@ describe Topic do
         @topic.destroy
         Post.where(id: 8).should be_empty
       end
+
+      it "should touch the topic"
     end
   end
 

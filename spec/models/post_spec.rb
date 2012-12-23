@@ -119,7 +119,7 @@ describe Post do
     describe "is a topic" do
       before { @post.topic = FactoryGirl.create(:topic); @post.save; @post.reload }
       it { should be_valid }
-      its(:sub_id) { should == 1 } # second post sub_id
+      its(:sub_id) { should == 1 }
 
       it "should touch the topic on post save" do
         @post.topic.should_receive :touch

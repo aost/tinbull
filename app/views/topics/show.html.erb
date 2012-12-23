@@ -1,2 +1,2 @@
 <h1 id="topic-heading"><%= @topic.name %></h1><%= link_to '~'+@topic.section, '/~'+@topic.section %>
-<ul class="post-list root-post-list"><%= render partial: 'post', object: @topic.posts[0], locals: { zero: true } %><%= render partial: 'post', collection: @topic.posts.where(parent_id: nil).reverse[0..-2] %></ul>
+<ul class="post-list root-post-list"><%= render partial: 'post_item', object: @topic.posts[0], locals: { zero: true } %><%= render partial: 'post_item', collection: @topic.posts.where(parent_id: nil).reverse[0..-2] %></ul>

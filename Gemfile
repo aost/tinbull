@@ -20,6 +20,7 @@ group :test do
   gem 'rb-inotify'
   gem 'libnotify'
   gem 'launchy'
+  gem 'timecop'
 end
 
 group :production do

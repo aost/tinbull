@@ -1,0 +1,7 @@
+<div class="post-text">
+  <%= post.html.html_safe %>
+</div>
+<div class="post-info">
+  <p class="poster-id"><%= post.poster_id %></p>
+  <p class="post-time" title="<%= post.created_at %>"><%= time_ago_in_words(post.created_at) %> ago</p>
+</div>
