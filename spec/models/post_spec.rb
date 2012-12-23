@@ -8,6 +8,7 @@ describe Post do
   it { should respond_to(:password_hash) }
   it { should respond_to(:poster_id) }
   it { should respond_to(:topic) }
+  it { should respond_to(:sub_id) }
   it { should respond_to(:parent) }
   it { should respond_to(:children) }
   it { should be_valid }
@@ -93,8 +94,8 @@ describe Post do
       it { should be_valid }
       its(:password_hash) { should_not == @old_password_hash }
 
-      describe "after saving" do
-        before { @post.save }
+      describe "after saving and reloading" do
+        before { @post.save; @post.reload }
         it { @post.topic.password_hashes.should include @post.password_hash }
         its(:poster_id) { should == 'A' }
       end
@@ -102,7 +103,6 @@ describe Post do
       describe "with over 128 characters" do
         before do
           @post.password = '?'*129
-          @post.save
         end
         it { should_not be_valid }
       end
@@ -117,8 +117,10 @@ describe Post do
     end
 
     describe "is a topic" do
-      before { @post.topic = FactoryGirl.create(:topic) }
+      before { @post.topic = FactoryGirl.create(:topic); @post.save; @post.reload }
       it { should be_valid }
+      its(:sub_id) { should == 1 } # second post sub_id
+
       it "should touch the topic on post save" do
         @post.topic.should_receive :touch
         @post.save

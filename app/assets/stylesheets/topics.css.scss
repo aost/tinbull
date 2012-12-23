@@ -1,4 +1,5 @@
 $gray: #AAA;
+$darkgray: #999;
 
 #navigation {
   padding-bottom: 1em;
@@ -63,9 +64,17 @@ form {
   margin-top: 1em;
 }
 
+#topic-heading {
+  font-size: 1.2em;
+  display: inline;
+  margin-right: .2em;
+}
+
 .post-list {
   padding-left: 1em;
   list-style: none;
+
+  hr { border-color: $gray; }
 
   li {
     margin-top: 1em;
@@ -74,12 +83,18 @@ form {
       line-height: 1.4em;
 
       p {
-        margin-bottom: .5em;
+        margin-bottom: .8em;
+      }
+
+      ul {
+        margin-left: 2em;
+        list-style-type: square;
+
+        li { margin-top: 0; }
       }
     }
 
     .post-info {
-      margin-top: .5em;
       font-size: .9em;
 
       .poster-id {
@@ -90,6 +105,16 @@ form {
 
       .post-time {
         color: $gray;
+      }
+    }
+
+    .post-links {
+      font-size: .9em;
+      margin-top: .5em;
+
+      a {
+        color: $darkgray;
+        margin-right: .1em;
       }
     }
   }

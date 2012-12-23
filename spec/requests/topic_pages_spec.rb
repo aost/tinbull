@@ -82,9 +82,12 @@ describe "Topic pages" do
 
     it { should have_selector('title', text: "this fish") }
     it { should have_selector('h1', text: "this fish") }
+    it { should have_selector('a', text: "~marinebiology") }
     it { should have_selector('p', text: "not a fish") }
     it { should have_selector('p', text: "A") }
-    it { should have_selector('p', text: time_ago_in_words(@topic.posts[0].created_at)) }
+    it { should have_selector('p', text: time_ago_in_words(@topic.created_at)) }
+    it { should have_selector('a', text: "Reply") }
+    it { should have_selector('a', text: "\u2691") } # Flag
 
     describe "with a reply" do
       before do
@@ -94,6 +97,8 @@ describe "Topic pages" do
 
       it { should have_selector('p', text: "I don't know.") }
       it { should have_selector('p', text: "B") }
+      it { should have_selector('a', text: "Reply", count: 2) }
+      it { should have_selector('a', text: "\u2691", count: 2) }
 
       describe "and a reply to that reply" do
         before do

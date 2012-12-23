@@ -35,6 +35,10 @@ class Post < ActiveRecord::Base
     tinbullic_to_html(text)
   end
 
+  def sub_id
+    topic.posts.index self
+  end
+
   private
 
   def alphabase(n, letters = [])

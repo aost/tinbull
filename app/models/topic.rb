@@ -17,7 +17,7 @@ class Topic < ActiveRecord::Base
 
   def password_hashes
     hashes = []
-    Post.find_each do |post|
+    posts.each do |post|
      hashes << post.password_hash
     end
     hashes.delete(nil)

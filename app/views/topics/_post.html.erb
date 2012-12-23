@@ -10,6 +10,10 @@
     <p class="poster-id"><%= post.poster_id %></p>
     <p class="post-time" title="<%= post.created_at %>"><%= time_ago_in_words(post.created_at) %> ago</p>
   </div>
+  <div class="post-links">
+    <a href="#">Reply</a>
+    <a href="#" title="Flag disruption">&#x2691;</a>
+  </div>
   <% if !post.children.empty? %> 
     <ul class="post-list"><%= render partial: 'post', collection: post.children %></ul>
   <% end %>
