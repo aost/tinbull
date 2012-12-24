@@ -5,10 +5,10 @@
     <% end %></ul>
   <% end %>
   <%= tf.label :section %><%= tf.text_field :section %>
-  <%= tf.label :name, "Topic name" %><%= tf.text_field :name %>
+  <%= tf.label :name, "Topic" %><%= tf.text_field :name %>
   <%= tf.fields_for :posts do |pf| %>
     <%= pf.label :text %><%= pf.text_area :text %>
     <%= pf.label :password %><%= pf.text_field :password, type: :password %>
   <% end %>
-  <%= tf.submit %>
+  <%= tf.submit "Create topic" %>
 <% end %>

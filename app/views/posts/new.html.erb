@@ -1,1 +1,15 @@
+<%= link_to @parent.topic.name, "/~#{@parent.topic.section}/#{@parent.topic.sub_id}", id: 'topic', title: @parent.topic.posts[0].text %>
+<%= link_to '~'+@parent.topic.section, '/~'+@parent.topic.section %>
+
 <div id="parent-post"><%= render partial: 'shared/post', object: @parent %></div>
+
+<%= form_for @post do |f| %>
+  <% if @post.errors.any? %>
+    <ul id="errors"><% @post.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %></ul>
+  <% end %>
+  <%= f.label :text %><%= f.text_area :text %>
+  <%= f.label :password %><%= f.text_field :password, type: :password %>
+  <%= f.submit "Reply" %>
+<% end %>

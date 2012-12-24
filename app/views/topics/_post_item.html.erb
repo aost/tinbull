@@ -5,8 +5,8 @@
 <% end %>
   <%= render partial: 'shared/post', object: post_item %>
   <div class="post-links">
-    <a href="<%= post_item.topic.sub_id %><% if !local_assigns[:zero] %>/<%= post_item.sub_id %><% end %>/reply">Reply</a>
-    <a href="<%= post_item.topic.sub_id %><% if !local_assigns[:zero] %>/<%= post_item.sub_id %><% end %>/flag" title="Flag disruption">&#x2691;</a>
+    <a href="<%= post_item.topic.sub_id %>/<%= post_item.sub_id %>/reply">Reply</a>
+    <a href="<%= post_item.topic.sub_id %>/<%= post_item.sub_id %>/flag" title="Flag disruption">&#x2691;</a>
   </div>
   <% if !post_item.children.empty? %> 
     <ul class="post-list"><%= render partial: 'post_item', collection: post_item.children %></ul>

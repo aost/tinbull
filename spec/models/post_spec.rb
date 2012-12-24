@@ -107,6 +107,12 @@ describe Post do
         it { should_not be_valid }
       end
     end
+
+    describe "is an empty string" do
+      before { @post.password = "" }
+      it { should be_valid }
+      its(:password_hash) { should == nil }
+    end
   end
 
   describe "when topic" do
