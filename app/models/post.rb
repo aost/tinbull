@@ -33,7 +33,7 @@ class Post < ActiveRecord::Base
   end
 
   def html
-    tinbullic_to_html(text)
+    tinbullic_to_html(ERB::Util.html_escape(text))
   end
 
   def plain_text

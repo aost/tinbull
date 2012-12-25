@@ -30,6 +30,13 @@ describe Post do
       it { should_not be_valid }
     end
 
+    describe "is a string with HTML" do
+      it "should be escaped" do
+        @post.text = "<script>alert('haha, i hack you')</script>"
+        @post.html.should == "<p>&lt;script&gt;alert(&#x27;haha, i hack you&#x27;)&lt;/script&gt;</p>"
+      end
+    end
+
     describe "is a string with markup" do
       it "should wrap in at least one p tag" do
         @post.text = "I am technically a paragraph."
@@ -68,7 +75,7 @@ describe Post do
 
       it "should make unnamed links" do
         @post.text = "Feeling down? Try http://scenemusic.net, it's neato."
-        @post.html.should == "<p>Feeling down? Try <a href=\"http://scenemusic.net\">http://scenemusic.net</a>, it's neato.</p>"
+        @post.html.should == "<p>Feeling down? Try <a href=\"http://scenemusic.net\">http://scenemusic.net</a>, it&#x27;s neato.</p>"
         @post.plain_text.should == @post.text
       end
 
@@ -78,7 +85,7 @@ describe Post do
         # TODO: @post.plain_text.should == @post.text
 
         @post.text = "I have $20. You can't have it."
-        @post.html.should == "<p>I have $20. You can't have it.</p>"
+        @post.html.should == "<p>I have $20. You can&#x27;t have it.</p>"
         @post.plain_text.should == @post.text
       end
 
