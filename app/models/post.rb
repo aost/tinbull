@@ -75,7 +75,7 @@ class Post < ActiveRecord::Base
     html_text.gsub!(/\[(.+?)\|(.+?)\]/) do |m| # named links 
       text = $1
       url = $2
-      if !url.match(/^\w+:\/\//)
+      if !url.match(/^(\/|\w+:\/\/)/)
         url = "http://" + url
       end
       named_links << "<a href=\"#{url}\">#{text}</a>" # preserve

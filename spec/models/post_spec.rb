@@ -71,6 +71,11 @@ describe Post do
         @post.text = "[Pills here!|spam.com]"
         @post.html.should == '<p><a href="http://spam.com">Pills here!</a></p>'
         @post.plain_text.should == "Pills here!"
+
+        @post.text = "[This section is nice.|/~heartwarmingnews]"
+        @post.html.should == 
+          '<p><a href="/~heartwarmingnews">This section is nice.</a></p>'
+        @post.plain_text.should == "This section is nice."
       end
 
       it "should make unnamed links" do
