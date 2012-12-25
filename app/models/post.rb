@@ -1,4 +1,5 @@
 require 'digest'
+require 'nokogiri'
 
 class Post < ActiveRecord::Base
   attr_accessible :text, :password, :parent
@@ -35,6 +36,10 @@ class Post < ActiveRecord::Base
     tinbullic_to_html(text)
   end
 
+  def plain_text
+    Nokogiri::HTML(html).text
+  end
+
   def sub_id
     topic.posts.index self
   end
@@ -57,34 +62,39 @@ class Post < ActiveRecord::Base
 
     # preserve urls
     urls = []
-    text.gsub!(/\w+:\/\/[\S]*/) do |m|
+    html_text = text.gsub(/\w+:\/\/[\S]*/) do |m|
       urls << m
       "\uE001"
     end
 
-    text.gsub!(/\/(.+?)\//, '<i>\1</i>') # italic text
-    text.gsub!(/\*(.+?)\*/, '<b>\1</b>') # bold text
+    html_text.gsub!(/\*{2}(.+?)\*{2}/, '<b>\1</b>') # bold text
+    html_text.gsub!(/\*{1}(.+?)\*{1}/, '<i>\1</i>') # italic text
 
-    text.gsub!("\uE001") { |m| urls.shift } # restore urls
+    html_text.gsub!("\uE001") { |m| urls.shift } # restore urls
     named_links = []
-    text.gsub!(/\[(.+?)\|(.+?)\]/) do |m| # named links 
-      named_links << "<a href=\"#{$2}\">#{$1}</a>" # preserve
+    html_text.gsub!(/\[(.+?)\|(.+?)\]/) do |m| # named links 
+      text = $1
+      url = $2
+      if !url.match(/^\w+:\/\//)
+        url = "http://" + url
+      end
+      named_links << "<a href=\"#{url}\">#{text}</a>" # preserve
       "\uE002"
     end
-    text.gsub!(/\w+:\/\/.+?\.\w{2,3}[^\s\.?!,)]*/, 
+    html_text.gsub!(/\w+:\/\/.+?\.\w{2,3}[^\s\.?!,)]*/, 
       '<a href="\0">\0</a>') # unnamed links
-    text.gsub!("\uE002") { |m| named_links.shift } # restore named links
+    html_text.gsub!("\uE002") { |m| named_links.shift } # restore named links
 
     # unordered lists
-    text.gsub!(/\*\s(.+)/, '<li>\1</li>')
-    text.gsub!(/(<li>.*<\/li>)/m, '<ul>\1</ul>')
+    html_text.gsub!(/^\*\s(.+)/, '<li>\1</li>')
+    html_text.gsub!(/(<li>.*<\/li>)/m, '<ul>\1</ul>')
     
     # ordered lists
-    text.gsub!(/(\d+)\.\s(.*)/, '<li value="\1">\2</li>')
-    text.gsub!(/(<li value.*<\/li>)/m, '<ol>\1</ol>')
+    html_text.gsub!(/^(\d+)\.\s(.*)/, '<li value="\1">\2</li>')
+    html_text.gsub!(/(<li value.*<\/li>)/m, '<ol>\1</ol>')
 
-    text.gsub!(/(.+?)(\n{2}|\z)/m, '<p>\1</p>') # make paragraphs
-
-    text
+    html_text.gsub!(/(.+?)(\n{2}|\z)/m, '<p>\1</p>') # make paragraphs
+    html_text.gsub!(/<p>(<(ul|ol)>.*<\/(ul|ol)>)<\/p>/m, '\1') # not for lists
+    html_text
   end
 end

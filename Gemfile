@@ -5,6 +5,7 @@ gem 'debugger'
 gem 'jquery-rails'
 gem 'bcrypt-ruby'
 gem 'will_paginate'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'sqlite3'
@@ -20,7 +21,6 @@ group :test do
   gem 'rb-inotify'
   gem 'libnotify'
   gem 'launchy'
-  gem 'timecop'
 end
 
 group :production do

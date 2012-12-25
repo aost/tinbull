@@ -33,48 +33,73 @@ describe Post do
       it "should wrap in at least one p tag" do
         @post.text = "I am technically a paragraph."
         @post.html.should == "<p>I am technically a paragraph.</p>"
+        @post.plain_text.should == @post.text
       end
 
       it "should italicize" do
-        @post.text = "/So/ ignorant."
+        @post.text = "*So* ignorant."
         @post.html.should == "<p><i>So</i> ignorant.</p>"
+        @post.plain_text.should == "So ignorant."
       end
 
       it "should embolden" do
-        @post.text = "You are *wrong*."
+        @post.text = "You are **wrong**."
         @post.html.should == "<p>You are <b>wrong</b>.</p>"
+        @post.plain_text.should == "You are wrong."
+      end
+
+      it "should italicize and embolden" do
+        @post.text = "You *dare defy **your creator!?!***"
+        @post.html.should == "<p>You <i>dare defy <b>your creator!?!</b></i></p>"
+        @post.plain_text.should == "You dare defy your creator!?!"
       end
 
       it "should make named links" do
         @post.text = "Click [here|http://shocking.com/gasp/] instead."
         @post.html.should == 
           '<p>Click <a href="http://shocking.com/gasp/">here</a> instead.</p>'
+        @post.plain_text.should == "Click here instead."
+
+        @post.text = "[Pills here!|spam.com]"
+        @post.html.should == '<p><a href="http://spam.com">Pills here!</a></p>'
+        @post.plain_text.should == "Pills here!"
       end
 
       it "should make unnamed links" do
         @post.text = "Feeling down? Try http://scenemusic.net, it's neato."
         @post.html.should == "<p>Feeling down? Try <a href=\"http://scenemusic.net\">http://scenemusic.net</a>, it's neato.</p>"
+        @post.plain_text.should == @post.text
       end
 
       it "should make ordered lists" do
         @post.text = "1. Is this a list?\n2. I think so!\n33. Yep."
-        @post.html.should == "<p><ol><li value=\"1\">Is this a list?</li>\n<li value=\"2\">I think so!</li>\n<li value=\"33\">Yep.</li></ol></p>"
+        @post.html.should == "<ol><li value=\"1\">Is this a list?</li>\n<li value=\"2\">I think so!</li>\n<li value=\"33\">Yep.</li></ol>"
+        # TODO: @post.plain_text.should == @post.text
+
+        @post.text = "I have $20. You can't have it."
+        @post.html.should == "<p>I have $20. You can't have it.</p>"
+        @post.plain_text.should == @post.text
       end
 
       it "should make unordered lists" do
         @post.text = "* Oh look...\n* Another list!"
-        @post.html.should == "<p><ul><li>Oh look...</li>\n<li>Another list!</li></ul></p>"
-      end
+        @post.html.should == "<ul><li>Oh look...</li>\n<li>Another list!</li></ul>"
+        # TODO: @post.plain_text.should == @post.text
 
-      it "should make monospace text" do
-        @post.text = "  destroy_all_who_oppose(self)\n  return !prisoners"
-        @post.html.should == 
-          "<p><pre>destroy_all_who_oppose(self)</pre>\n<pre>return !prisoners</pre></p>"
+        @post.text = "I will sneak in a list * bwahaha!"
+        @post.html.should == "<p>I will sneak in a list * bwahaha!</p>"
+        @post.plain_text.should == @post.text
       end
 
       it "should seperate paragraphs" do
         @post.text = "one paragraph.\n\ntwo paragraph!\nstill two paragraph.\n\nthree paragraph."
         @post.html.should == "<p>one paragraph.</p><p>two paragraph!\nstill two paragraph.</p><p>three paragraph.</p>"
+      end
+
+      it "shouldn't affect the original text" do
+        @post.text = "Hello!"
+        html = @post.html
+        @post.text.should_not == html
       end
     end
   end

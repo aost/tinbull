@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   def index
     if !params[:section]
-      @topics = Topic.order('updated_at DESC').paginate(page: params[:page])
+      @topics = Topic.order('created_at DESC').paginate(page: params[:page])
     else
       @topics = Topic.where(section: params[:section]).paginate(page: params[:page])
       @title = '~'+params[:section]

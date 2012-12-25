@@ -12,16 +12,17 @@ $gray: #AAA;
   line-height: 1.4em;
   overflow-x: auto;
 
-  p {
+  p, ul, ol {
     margin-bottom: .8em;
   }
 
-  ul {
+  ul, ol {
     margin-left: 2em;
-    list-style-type: square;
 
     li { margin-top: 0; }
   }
+
+  ul { list-style-type: square; }
 }
 
 .post-info {
