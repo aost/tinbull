@@ -9,6 +9,7 @@ describe Topic do
   it { should respond_to(:posts) }
   it { should respond_to(:password_hashes) }
   it { should respond_to(:sub_id) }
+  it { should respond_to(:popularity) }
   it { should respond_to(:created_at) }
   it { should respond_to(:updated_at) }
   it { should be_valid }
@@ -71,14 +72,17 @@ describe Topic do
     describe "has 0 items" do
       before { @topic.posts.clear }
       it { should_not be_valid }
+      its(:popularity) { should == 0 }
     end
 
     describe "has 1 item" do
       before do
         @topic.posts.clear
-        @topic.posts << FactoryGirl.create(:post)
+        @topic.posts.build(text: "woot")
+        @topic.save
       end
       it { should be_valid }
+      its(:popularity) { should_not == 0 }
 
       it "should autosave with topic" do
         @topic.name = "Hello!"
