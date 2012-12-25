@@ -55,15 +55,6 @@ class Post < ActiveRecord::Base
   def tinbullic_to_html(text)
     return text if text.blank? # require text
 
-    # monospace text
-    text.gsub!(/^\s{2}(.*?)$/, '<pre>\1</pre>')
-    # preserve monospace text
-    monotext = []
-    text.gsub!(/<pre>.*?<\/pre>/) do |m| 
-      monotext << m
-      "\uE000"
-    end
-
     # preserve urls
     urls = []
     text.gsub!(/\w+:\/\/[\S]*/) do |m|
@@ -93,7 +84,6 @@ class Post < ActiveRecord::Base
     text.gsub!(/(<li value.*<\/li>)/m, '<ol>\1</ol>')
 
     text.gsub!(/(.+?)(\n{2}|\z)/m, '<p>\1</p>') # make paragraphs
-    text.gsub!("\uE000") { |m| monotext.shift } # restore monospace text
 
     text
   end

@@ -9,7 +9,7 @@
     <a href="<%= post_item.topic.sub_id %>/<%= post_item.sub_id %>/flag" title="Flag disruption">&#x2691;</a>
   </div>
   <% if !post_item.children.empty? %> 
-    <ul class="post-list"><%= render partial: 'post_item', collection: post_item.children %></ul>
+    <ul class="post-list"><%= render partial: 'post_item', collection: post_item.children.reverse %></ul>
   <% end %>
 </li>
 <% if local_assigns[:zero] %><hr /><% end %>
