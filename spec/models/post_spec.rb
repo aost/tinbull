@@ -6,6 +6,7 @@ describe Post do
 
   it { should respond_to(:text) }
   it { should respond_to(:password_hash) }
+  it { should respond_to(:ip) }
   it { should respond_to(:poster_id) }
   it { should respond_to(:topic) }
   it { should respond_to(:sub_id) }

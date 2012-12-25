@@ -8,6 +8,7 @@ describe TopicsController do
         #  post :create, topic: FactoryGirl.attributes_for(:topic) TODO: Fix this test
         #}.to change(Topic, :count).by(1)
       #end
+      it "logs ip in topic's post"
 
       it "redirects to new topic" #do
         #post :create, topic: FactoryGirl.attributes_for(:topic)

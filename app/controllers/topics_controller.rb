@@ -22,6 +22,7 @@ class TopicsController < ApplicationController
 
   def create
     @topic = Topic.new(params[:topic])
+    @topic.posts[0].ip = request.remote_ip
     if @topic.save
       redirect_to action: :show, id: @topic.sub_id, section: @topic.section
     else
