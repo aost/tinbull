@@ -7,7 +7,7 @@
 <ul id="topics">
   <%= render @topics %>
 </ul>
-
-<%= will_paginate %>
+  
+<%= paginate @topics, window: 0 %>
 
 <a id="new-topic" href=<% if params[:section] %>"~/<%= params[:section] %>new" <% else %>"new"<% end %>>New topic</a>

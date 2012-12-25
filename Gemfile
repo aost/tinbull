@@ -4,8 +4,8 @@ gem 'rails', '3.2.8'
 gem 'debugger'
 gem 'jquery-rails'
 gem 'bcrypt-ruby'
-gem 'will_paginate'
 gem 'nokogiri'
+gem 'kaminari'
 
 group :development, :test do
   gem 'sqlite3'

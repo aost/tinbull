@@ -8,15 +8,15 @@ describe "Topic pages" do
 
     it { should have_selector('title', text: "Tin Bull") }
 
-    describe "with 21 topics" do
+    describe "with 26 topics" do
       before do
-        20.times { FactoryGirl.create :topic }
+        25.times { FactoryGirl.create :topic }
         FactoryGirl.create(:topic, name: "I'm different!", section: 'unique')
         visit topics_path
       end
 
       it "should have an element for each topic" do
-        Topic.paginate(page: 1).each do |topic|
+        Topic.page(1).each do |topic|
           page.should have_selector('li div', text: (topic.posts.length-1).to_s)
           page.should have_selector('li a[class="topic-title"]', text: topic.name)
           page.should have_selector('li a', text: topic.section)
@@ -27,8 +27,8 @@ describe "Topic pages" do
         end
       end
 
-      it "should have a link to the second page" do
-        page.should have_selector('div a', text: 2.to_s)
+      it "should have a link to the next page" do
+        page.should have_selector('a', text: "Next")
       end
         
     end

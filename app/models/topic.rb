@@ -9,8 +9,6 @@ class Topic < ActiveRecord::Base
                       format: { with: /\A[a-z0-9]+\Z/ } # lowercase alphanumeric
   validate :has_posts?
 
-  self.per_page = 20
-
   def section= s
     self[:section] = s.downcase
     if section[0] == '~'

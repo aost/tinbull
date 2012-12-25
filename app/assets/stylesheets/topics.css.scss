@@ -94,3 +94,17 @@ form {
 .root-post-list {
   padding-left: 0;
 }
+
+#pagination {
+  font-size: 1.1em;
+  margin-bottom: 1em;
+
+  .current {
+    font-weight: bold;
+    margin: .5em;
+  }
+
+  .prev, .next {
+    color: $gray;
+  }
+}
