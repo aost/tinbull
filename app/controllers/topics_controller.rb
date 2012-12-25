@@ -1,5 +1,7 @@
 class TopicsController < ApplicationController
   def index
+    params[:sort] = params[:sort] || cookies[:sort] || "popular"
+    cookies[:sort] = params[:sort]
     if !params[:section]
       @topics = Topic.order('created_at DESC').page(params[:page])
     else
