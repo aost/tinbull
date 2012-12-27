@@ -8,6 +8,13 @@ describe "Topic pages" do
 
     it { should have_selector('title', text: "Tin Bull") }
 
+    it "should be able to respond with JSON and XML" do
+      visit topics_path(format: :json)
+      page.response_headers['Content-Type'].should include 'application/json'
+      visit topics_path(format: :xml)
+      page.response_headers['Content-Type'].should include 'application/xml'
+    end
+
     describe "with 26 topics" do
       before do
         25.times { FactoryGirl.create :topic }
@@ -30,7 +37,7 @@ describe "Topic pages" do
       it "should have a link to the next page" do
         page.should have_selector('a', text: "Next")
       end
-        
+
     end
 
     describe "with 1 topic" do
@@ -88,6 +95,13 @@ describe "Topic pages" do
     it { should have_selector('p', text: time_ago_in_words(@topic.created_at)) }
     it { should have_selector('a', text: "Reply") }
     it { should have_selector('a', text: "\u2691") } # Flag
+
+    it "should be able to respond with JSON and XML" do
+      visit topic_path(section: 'marinebiology', id: 1, format: :json)
+      page.response_headers['Content-Type'].should include 'application/json'
+      visit topic_path(section: 'marinebiology', id: 1, format: :xml)
+      page.response_headers['Content-Type'].should include 'application/xml'
+    end
 
     describe "with a reply" do
       before do
