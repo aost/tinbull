@@ -5,7 +5,7 @@
 
 <%= form_for @post do |f| %>
   <% if @post.errors.any? %>
-    <ul id="errors"><% @post.errors.full_messages.each do |error| %>
+    <ul id="error"><% @post.errors.full_messages.each do |error| %>
       <li><%= error %></li>
     <% end %></ul>
   <% end %>

@@ -28,6 +28,16 @@ body {
   margin-bottom: 2em;
 }
 
+#error {
+  color: red;
+  margin-bottom: 1em;
+
+  li {
+    list-style: none;
+    margin-bottom: 0.2em;
+  }
+}
+
 footer {
   padding-top: 2em;
   padding-bottom: 1em;

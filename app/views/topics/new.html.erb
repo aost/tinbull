@@ -1,6 +1,6 @@
 <%= form_for @topic do |tf| %>
   <% if @topic.errors.any? %>
-    <ul id="errors"><% @topic.errors.full_messages.each do |error| %>
+    <ul id="error"><% @topic.errors.full_messages.each do |error| %>
       <li><%= error %></li>
     <% end %></ul>
   <% end %>
