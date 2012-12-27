@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 gem 'debugger'
-gem 'jquery-rails'
 gem 'bcrypt-ruby'
 gem 'nokogiri'
 gem 'kaminari'
+gem 'backbone-rails'
 
 group :development, :test do
   gem 'sqlite3'

@@ -21,6 +21,7 @@ class TopicsController < ApplicationController
         first_post_at: t.posts[0].created_at.to_s,
         last_post_at: t.posts[-1].created_at.to_s
       }
+      topic.delete(:section) if params[:section]
       public_topics << topic
     end
     respond_with(public_topics)

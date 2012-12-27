@@ -18,8 +18,4 @@ class SpecialController < ApplicationController
   def code
     redirect_to "https://github.com/skofo/tinbull"
   end
-
-  def donate
-    @title = "Donate"
-  end
 end

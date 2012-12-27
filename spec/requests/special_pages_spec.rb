@@ -38,10 +38,4 @@ describe "Special pages" do
     before { visit code_path }
     it "should redirect to github repo"
   end
-
-  describe "donate" do
-    before { visit donate_path }
-    it { should have_selector('title', text: "Donate") }
-    it { should have_selector('h1', text: "Donate") }
-  end
 end

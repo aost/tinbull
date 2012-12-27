@@ -15,6 +15,17 @@ describe "Topic pages" do
       page.response_headers['Content-Type'].should include 'application/xml'
     end
 
+    describe "in a section with a topic" do
+      before do
+        FactoryGirl.create(:topic, name: "Hello!", section: 'hello')
+        visit topics_path('hello')
+      end
+
+      it { should have_selector('title', text: "~hello") }
+      it { should have_selector('#section', text: "~hello") }
+      it { should_not have_selector('#topics li', text: "~hello") }
+    end
+
     describe "with 26 topics" do
       before do
         25.times { FactoryGirl.create :topic }

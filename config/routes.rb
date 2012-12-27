@@ -11,5 +11,4 @@ Tinbull::Application.routes.draw do
   match 'about' => 'special#about', as: :about
   match 'markup' => 'special#markup', as: :markup
   match 'code' => 'special#code', as: :code
-  match 'donate' => 'special#donate', as: :donate
 end
