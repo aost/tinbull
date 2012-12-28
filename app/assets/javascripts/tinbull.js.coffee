@@ -1,19 +1,23 @@
-Topic = Backbone.Model.extend({})
+$ ->
 
-TopicsCollection = Backbone.Collection.extend
-  model: Topic
-  url: '/.json'
+  Topic = Backbone.Model.extend({})
 
-TopicsView = Backbone.View.extend
-  el: $('#view')
+  Topics = Backbone.Collection.extend
+    model: Topic
+    url: '/.json'
 
-TopicView = Backbone.View.extend({})
+  TopicsView = Backbone.View.extend
+    el: '#view'
 
-TinBullView = Backbone.View.extend
-  el: $('#foreground')
+  TinBullView = Backbone.View.extend
+    el: '#foreground'
 
-TinBullRouter = Backbone.Router.extend({})
+  TinBullRouter = Backbone.Router.extend
+    routes:
+      '/': 'topics'
+      '/~:section': 'topics'
 
-t = new TopicsCollection
-t.reset()
-console.log t
+  t = new Topics
+  t.reset()
+  Backbone.history.start()
+  console.log t

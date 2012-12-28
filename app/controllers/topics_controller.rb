@@ -16,7 +16,7 @@ class TopicsController < ApplicationController
       topic = {
         name: t.name,
         section: t.section,
-        id: t.sub_id,
+        sub_id: t.sub_id,
         replies: t.posts.length - 1,
         first_post_at: t.posts[0].created_at.to_s,
         last_post_at: t.posts[-1].created_at.to_s
@@ -49,7 +49,7 @@ class TopicsController < ApplicationController
     reply_array = []
     posts.each do |p|
       reply = {
-        id: p.sub_id,
+        sub_id: p.sub_id,
         content: p.html,
         poster_id: p.poster_id,
         time: p.created_at.to_s,
