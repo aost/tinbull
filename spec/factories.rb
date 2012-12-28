@@ -10,6 +10,7 @@ FactoryGirl.define do
   factory :post do
     text "A miserable little pile of secrets!"
     topic
+    association :poster, factory: :user
   end
 
   factory :user do

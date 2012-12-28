@@ -6,12 +6,13 @@ describe Post do
 
   it { should respond_to(:text) }
   it { should respond_to(:password_hash) }
-  it { should respond_to(:ip) }
+  it { should_not respond_to(:ip) }
   it { should respond_to(:password_id) }
   it { should respond_to(:topic) }
   it { should respond_to(:sub_id) }
   it { should respond_to(:parent) }
   it { should respond_to(:children) }
+  it { should respond_to(:poster) }
   it { should be_valid }
 
   describe "when text" do
@@ -192,6 +193,18 @@ describe Post do
 
     describe "is a topic" do
       it { expect { @post.parent = Topic.new }.to raise_error }
+    end
+  end
+
+  describe "when poster" do
+    describe "is nil" do
+      before { @post.poster = nil }
+      it { should_not be_valid }
+    end
+
+    describe "is a User" do
+      before { @post.poster = FactoryGirl.create(:user) }
+      it { should be_valid }
     end
   end
 end

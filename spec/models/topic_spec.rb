@@ -78,7 +78,7 @@ describe Topic do
     describe "has 1 item" do
       before do
         @topic.posts.clear
-        @topic.posts.build(text: "woot")
+        @topic.posts << FactoryGirl.create(:post, topic: @topic)
         @topic.save
       end
       it { should be_valid }

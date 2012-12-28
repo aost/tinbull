@@ -2,16 +2,18 @@ require 'digest'
 require 'nokogiri'
 
 class Post < ActiveRecord::Base
-  attr_accessible :text, :password, :parent
+  attr_accessible :text, :password, :parent, :poster
   attr_reader :password
 
   belongs_to :topic, touch: true
   belongs_to :parent, class_name: "Post"
   has_many :children, class_name: "Post", foreign_key: "parent_id"
+  belongs_to :poster, class_name: "User"
 
   validates :text, presence: true, length: { maximum: 5000 }
   #validates :topic, presence: true # TODO: Add topic form doesn't work with this
   validates :password, length: { maximum: 128 }
+  validates :poster, presence: true
 
   before_save do
     self.topic = parent.topic if parent

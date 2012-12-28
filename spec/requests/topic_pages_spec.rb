@@ -116,7 +116,8 @@ describe "Topic pages" do
 
     describe "with a reply" do
       before do
-        @reply = @topic.posts.create(text: "I don't know.", password: "124")
+        @reply = @topic.posts.create(text: "I don't know.", password: "124",
+          poster: FactoryGirl.create(:user))
         visit topic_path(section: 'marinebiology', id: 1)
       end
 
@@ -127,7 +128,8 @@ describe "Topic pages" do
 
       describe "and a reply to that reply" do
         before do
-          @topic.posts.create(text: "Ohoho", password: "124", parent: @reply)
+          @topic.posts.create(text: "Ohoho", password: "124", parent: @reply,
+            poster: FactoryGirl.create(:user))
           visit topic_path(section: 'marinebiology', id: 1)
         end
 

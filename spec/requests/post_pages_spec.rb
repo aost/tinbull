@@ -8,7 +8,7 @@ describe "Post pages" do
       topic = FactoryGirl.create :topic
       topic.posts.clear
       @parent = topic.posts.create(text: "I'm running out of filler ideas.",
-        password: "noimagination")
+        password: "noimagination", poster: FactoryGirl.create(:user))
       visit new_post_path(@parent.topic.section, @parent.topic.sub_id, @parent.sub_id)
     end
 
