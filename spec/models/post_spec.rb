@@ -207,5 +207,10 @@ describe Post do
       before { @post.poster = FactoryGirl.create(:user) }
       it { should be_valid }
     end
+
+    describe "is a blocked User" do
+      before { @post.poster = FactoryGirl.create(:user, blocked: true) }
+      it { should_not be_valid }
+    end
   end
 end

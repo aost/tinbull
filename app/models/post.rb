@@ -16,6 +16,7 @@ class Post < ActiveRecord::Base
   #validates :topic, presence: true # TODO: Add topic form doesn't work with this
   validates :password, length: { maximum: 128 }
   validates :poster, presence: true
+  validate :poster_cannot_be_blocked
 
   before_save do
     self.topic = parent.topic if parent
@@ -101,5 +102,11 @@ class Post < ActiveRecord::Base
     # not around lists
     html_text.gsub!(/<p>(<(ul|ol)>.*<\/(ul|ol)>)<\/p>/m, '\1') 
     html_text
+  end
+
+  def poster_cannot_be_blocked
+    if poster && poster.blocked == true
+      errors.add(:poster, "is barred from participating. If there has been a grave misunderstanding, please contact butiminnocent@tinbull.com with ID##{poster.posts.last.id}.")
+    end
   end
 end

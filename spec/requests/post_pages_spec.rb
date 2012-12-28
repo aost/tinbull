@@ -17,6 +17,9 @@ describe "Post pages" do
     it { should have_selector('p', text: @parent.password_id) }
     it { should have_selector('p', text: time_ago_in_words(@parent.created_at)) }
 
+    describe "with a blocked IP" do
+    end
+
     describe "with text filled" do
       before do
         fill_in "Text", with: "Russell Brand did what?"
@@ -30,12 +33,27 @@ describe "Post pages" do
         before { click_button "Reply" }
         let(:post) { Post.last }
 
-        it "should render the topic with the post" do
+        it "should redirect to the topic with the post" do
           current_path.should == topic_path(@topic.section, @topic.sub_id) 
           page.should have_selector('div', text: post.text)
         end
 
         it { post.poster.ip.should == "127.0.0.1" }
+      end
+
+      describe "after submitting with blocked IP" do
+        before do
+          @user = 
+            User.where(ip: "127.0.0.1").first || User.create(ip: "127.0.0.1")
+          @user.blocked = true
+          @user.save
+          click_button "Reply"
+        end
+
+        it "should rerender the form with an error" do
+          page.should have_selector('form')
+          page.should have_selector('ul[id="error"]')
+        end
       end
     end
     
