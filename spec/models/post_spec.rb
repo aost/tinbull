@@ -6,13 +6,13 @@ describe Post do
 
   it { should respond_to(:text) }
   it { should respond_to(:password_hash) }
-  it { should_not respond_to(:ip) }
   it { should respond_to(:password_id) }
   it { should respond_to(:topic) }
   it { should respond_to(:sub_id) }
   it { should respond_to(:parent) }
   it { should respond_to(:children) }
   it { should respond_to(:poster) }
+  it { should_not respond_to(:ip) }
   it { should be_valid }
 
   describe "when text" do

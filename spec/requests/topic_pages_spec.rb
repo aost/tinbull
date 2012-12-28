@@ -148,5 +148,48 @@ describe "Topic pages" do
     it { should have_selector("input[id='topic_section']") }
     it { should have_selector("textarea[id='topic_posts_attributes_0_text']") }
     it { should have_selector("input[id='topic_posts_attributes_0_password']") }
+
+    describe "with valid information" do
+      before do
+        fill_in "Section", with: "cake"
+        fill_in "Topic", with: "<topic here>"
+        fill_in "Text", with: "References make the world go 'round."
+        fill_in "Password", with: "secret"
+      end
+
+      it "should create a topic" do
+        expect { click_button "Create topic" }.to change(Topic, :count).by(1)
+      end
+
+      describe "after submitting" do
+        before { click_button "Create topic" }
+        let(:topic) { Topic.last }
+      
+        it "should render the topic" do
+          current_path.should == topic_path(topic.section, topic.sub_id) 
+          page.should have_selector('title', text: topic.name)
+          page.should have_selector('div', text: topic.posts[0].text)
+        end
+
+        it "should log IP" do
+          topic.posts[0].poster.ip.should == "127.0.0.1"
+        end
+      end
+    end
+    
+    describe "with blank information" do
+      it "should not create a topic" do
+        expect { click_button "Create topic" }.to change(Topic, :count).by(0)
+      end
+
+      describe "after submitting" do
+        before { click_button "Create topic" }
+
+        it "should rerender the form with errors" do
+          page.should have_selector('form')
+          page.should have_selector('ul[id="error"]')
+        end
+      end
+    end
   end
 end

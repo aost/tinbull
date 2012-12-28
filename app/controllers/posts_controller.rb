@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     end
     @post.poster = 
       User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)
+    @parent = topic.posts[params[:parent_id].to_i]
 
     if @post.save
       redirect_to topic_path(@post.topic.section, @post.topic.sub_id)
