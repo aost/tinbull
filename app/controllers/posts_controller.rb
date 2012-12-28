@@ -31,7 +31,11 @@ class PostsController < ApplicationController
     topic = topics[params[:topic_id].to_i - 1]
     post = topic.posts[params[:post_id].to_i]
     flagger = User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)
-    post.flaggers << flagger unless post.flaggers.include? flagger
+    if !post.flaggers.include? flagger
+      post.flaggers << flagger
+    else
+      post.flaggers.delete(flagger)
+    end
     post.save
     redirect_to topic_path(post.topic.section, post.topic.sub_id)
   end

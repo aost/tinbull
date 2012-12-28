@@ -28,7 +28,7 @@ module TopicsHelper
   # Make topic form errors make more sense.
   def fix_topic_error(error)
     error.gsub! "Posts ", ""
-    error.capitalize!
+    error[0] = error[0].capitalize
     error.gsub! "Name", "Topic"
   end
 end

@@ -93,5 +93,19 @@ describe "Post pages" do
     it "should have a flagged post" do
       page.should have_selector('a[class="flagged"]')
     end
+
+    describe "and flag again" do
+      before do
+        visit flag_post_path(@post.topic.section, @post.topic.sub_id, @post.sub_id)
+      end
+
+      it "should remove flagger from post" do
+        @post.flaggers.count.should == 0
+      end
+
+      it "should not have a flagged post" do
+        page.should_not have_selector('a[class="flagged"]')
+      end
+    end
   end
 end

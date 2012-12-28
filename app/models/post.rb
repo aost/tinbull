@@ -106,7 +106,12 @@ class Post < ActiveRecord::Base
 
   def poster_cannot_be_blocked
     if poster && poster.blocked == true
-      errors.add(:poster, "is barred from participating. If there has been a grave misunderstanding, please contact butiminnocent@tinbull.com with ID##{poster.posts.last.id}.")
+      if !poster.posts.empty?
+        idn = poster.posts.last.id
+      else
+        idn = poster.id.to_s + 'P'
+      end
+      errors.add(:poster, "is barred from participating. If there has been a grave misunderstanding, please contact butiminnocent@tinbull.com with ID##{idn}.")
     end
   end
 end
