@@ -36,7 +36,7 @@ class TopicsController < ApplicationController
       name: @topic.name,
       section: @topic.section,
       content: @topic.posts[0].html,
-      poster_id: @topic.posts[0].poster_id,
+      password_id: @topic.posts[0].password_id,
       time: @topic.posts[0].created_at.to_s,
       replies: []
     }
@@ -51,7 +51,7 @@ class TopicsController < ApplicationController
       reply = {
         sub_id: p.sub_id,
         content: p.html,
-        poster_id: p.poster_id,
+        password_id: p.password_id,
         time: p.created_at.to_s,
         replies: []
       }

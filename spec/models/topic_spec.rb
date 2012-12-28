@@ -115,7 +115,7 @@ describe Topic do
     end
     it { should be_valid }
     its(:password_hashes) { should have(1).hashstring }
-    it { @topic.posts[0].poster_id.should == 'A' }
+    it { @topic.posts[0].password_id.should == 'A' }
 
     describe "and two more with the same password" do
       before do
@@ -125,7 +125,7 @@ describe Topic do
       end
       it { should be_valid }
       its(:password_hashes) { should have(1).hashstring }
-      it { 2.times { |i| @topic.posts[i].poster_id.should == 'A' } }
+      it { 2.times { |i| @topic.posts[i].password_id.should == 'A' } }
     end
 
     describe "and twenty-seven more with different passwords" do
@@ -138,12 +138,12 @@ describe Topic do
       its(:password_hashes) { should have(28).hashstrings }
       it do
         {1 => 'B', 2 => 'C', 3 => 'D'}.each do |k, v|
-          @topic.posts[k].poster_id.should == v
+          @topic.posts[k].password_id.should == v
         end
       end
       it do
         {25 => 'Z', 26 => 'AA', 27 => 'AB'}.each do |k, v|
-          @topic.posts[k].poster_id.should == v
+          @topic.posts[k].password_id.should == v
         end
       end
 
@@ -164,7 +164,7 @@ describe Topic do
       end
       it { should be_valid }
       its(:password_hashes) { should have(1).hashstring }
-      it { 2.times { |i| @topic.posts[1+i].poster_id.should == nil } }
+      it { 2.times { |i| @topic.posts[1+i].password_id.should == nil } }
     end
   end
 

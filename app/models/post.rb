@@ -27,7 +27,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def poster_id
+  def password_id
     decimal_id = topic.password_hashes.index password_hash
     alphabase(decimal_id) if decimal_id
   end

@@ -14,7 +14,7 @@ describe "Post pages" do
 
     it { should have_selector('title', text: "filler") }
     it { should have_selector('div', text: @parent.text) }
-    it { should have_selector('p', text: @parent.poster_id) }
+    it { should have_selector('p', text: @parent.password_id) }
     it { should have_selector('p', text: time_ago_in_words(@parent.created_at)) }
 
   end

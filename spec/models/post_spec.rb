@@ -7,7 +7,7 @@ describe Post do
   it { should respond_to(:text) }
   it { should respond_to(:password_hash) }
   it { should respond_to(:ip) }
-  it { should respond_to(:poster_id) }
+  it { should respond_to(:password_id) }
   it { should respond_to(:topic) }
   it { should respond_to(:sub_id) }
   it { should respond_to(:parent) }
@@ -135,7 +135,7 @@ describe Post do
       describe "after saving and reloading" do
         before { @post.save; @post.reload }
         it { @post.topic.password_hashes.should include @post.password_hash }
-        its(:poster_id) { should == 'A' }
+        its(:password_id) { should == 'A' }
       end
 
       describe "with over 128 characters" do
