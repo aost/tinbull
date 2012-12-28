@@ -161,9 +161,15 @@ describe Post do
     end
 
     describe "is a topic" do
-      before { @post.topic = FactoryGirl.create(:topic); @post.save; @post.reload }
+      before do
+        @post.build_topic(name: "Yeah!", section: 'optimism')
+        @post.topic.posts << @post
+        @post.save
+        @post.reload
+      end
+
       it { should be_valid }
-      its(:sub_id) { should == 1 }
+      its(:sub_id) { should == 0 }
 
       it "should touch the topic on post save" do
         @post.topic.should_receive :touch
