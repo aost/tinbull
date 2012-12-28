@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121228125108) do
+ActiveRecord::Schema.define(:version => 20121228151302) do
 
   create_table "posts", :force => true do |t|
     t.text     "text"
@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(:version => 20121228125108) do
     t.integer  "parent_id"
     t.integer  "topic_id"
     t.integer  "poster_id"
+  end
+
+  create_table "posts_users", :id => false, :force => true do |t|
+    t.integer "flagged_post_id"
+    t.integer "flagger_id"
   end
 
   create_table "topics", :force => true do |t|

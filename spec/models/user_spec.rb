@@ -8,6 +8,7 @@ describe User do
   it { should respond_to(:blocked) }
   its(:blocked) { should == false }
   it { should respond_to(:posts) }
+  it { should respond_to(:flagged_posts) }
   it { should be_valid }
 
   describe "when ip" do

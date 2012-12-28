@@ -54,4 +54,26 @@ describe "Post pages" do
       end
     end
   end
+
+  describe "flag" do
+    before do
+      @topic = FactoryGirl.create :topic
+      @topic.posts.clear
+      @post = @topic.posts.create(text: "I'm running out of filler ideas.",
+        password: "noimagination", poster: FactoryGirl.create(:user))
+      visit flag_post_path(@post.topic.section, @post.topic.sub_id, @post.sub_id)
+    end
+
+    it "should rerender topic" do
+      current_path.should == topic_path(@topic.section, @topic.sub_id) 
+    end
+
+    it "should add flagger to post" do
+      @post.flaggers.count.should == 1
+    end
+
+    it "should have a flagged post" do
+      page.should have_selector('a[class="flagged"]')
+    end
+  end
 end

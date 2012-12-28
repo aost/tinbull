@@ -9,6 +9,8 @@ class Post < ActiveRecord::Base
   belongs_to :parent, class_name: "Post"
   has_many :children, class_name: "Post", foreign_key: "parent_id"
   belongs_to :poster, class_name: "User"
+  has_and_belongs_to_many :flaggers, class_name: "User", 
+    foreign_key: "flagged_post_id", association_foreign_key: "flagger_id"
 
   validates :text, presence: true, length: { maximum: 5000 }
   #validates :topic, presence: true # TODO: Add topic form doesn't work with this

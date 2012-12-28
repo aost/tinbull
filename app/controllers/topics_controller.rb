@@ -31,6 +31,8 @@ class TopicsController < ApplicationController
     topics = Topic.where(section: params[:section])
     @topic = topics.at(params[:id].to_i - 1)
     @title = @topic.name
+    @user = 
+      User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)
 
     public_topic = {
       name: @topic.name,

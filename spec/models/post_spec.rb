@@ -12,6 +12,7 @@ describe Post do
   it { should respond_to(:parent) }
   it { should respond_to(:children) }
   it { should respond_to(:poster) }
+  it { should respond_to(:flaggers) }
   it { should_not respond_to(:ip) }
   it { should be_valid }
 

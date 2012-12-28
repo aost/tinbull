@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   def new
-    params[:parent_id] = 0 if !params[:parent_id]
     topics = Topic.where(section: params[:section])
     topic = topics[params[:topic_id].to_i - 1]
     @parent = topic.posts[params[:parent_id].to_i]
@@ -25,5 +24,15 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def flag
+    topics = Topic.where(section: params[:section])
+    topic = topics[params[:topic_id].to_i - 1]
+    post = topic.posts[params[:post_id].to_i]
+    flagger = User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)
+    post.flaggers << flagger unless post.flaggers.include? flagger
+    post.save
+    redirect_to topic_path(post.topic.section, post.topic.sub_id)
   end
 end
