@@ -191,5 +191,10 @@ describe "Topic pages" do
         end
       end
     end
+
+    describe "within a section" do
+      before { visit new_topic_path('yay') }
+      it { should have_selector('input[id="topic_section"][value="yay"]') }
+    end
   end
 end

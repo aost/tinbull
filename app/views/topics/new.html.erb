@@ -5,7 +5,7 @@
       <li><%= error %></li>
     <% end %></ul>
   <% end %>
-  <%= tf.label :section %><%= tf.text_field :section %>
+  <%= tf.label :section %><%= tf.text_field :section, value: params[:section] %>
   <%= tf.label :name, "Topic" %><%= tf.text_field :name %>
   <%= tf.fields_for :posts do |pf| %>
     <%= pf.label :text %><%= pf.text_area :text %>

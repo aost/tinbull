@@ -7,7 +7,7 @@ class Topic < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 120 }
   validates :section, presence: true, length: { maximum: 20 }
   validates_format_of :section, with: /\A[a-z0-9]*\Z/,
-    message: "has to be alphanumeric"
+    message: "needs to be alphanumeric"
   validate :has_posts?
 
   def section= s
