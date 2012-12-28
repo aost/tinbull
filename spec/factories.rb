@@ -11,4 +11,8 @@ FactoryGirl.define do
     text "A miserable little pile of secrets!"
     topic
   end
+
+  factory :user do
+    sequence(:ip) { |n| "127.0.0.#{n}" }
+  end
 end
