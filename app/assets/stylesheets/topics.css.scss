@@ -12,10 +12,10 @@ $darkgray: #999;
 #topics {
   list-style: none;
 
-  li {
+  .topic {
     padding-bottom: 1.2em;
 
-    .topic-post-count {
+    .reply-count {
       float: left;
       width: 2em;
       border: 1px solid black;
@@ -23,11 +23,11 @@ $darkgray: #999;
       text-align: center;
     }
 
-    .topic-title {
+    .name {
       font-size: 1.2em;
     }
 
-    .topic-info {
+    .info {
       padding-top: .5em;
 
       p {

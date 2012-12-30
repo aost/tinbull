@@ -36,7 +36,7 @@ describe "Topic pages" do
       it "should have an element for each topic" do
         Topic.page(1).each do |topic|
           page.should have_selector('li div', text: (topic.posts.length-1).to_s)
-          page.should have_selector('li a[class="topic-title"]', text: topic.name)
+          page.should have_selector('li a[class="name"]', text: topic.name)
           page.should have_selector('li a', text: topic.section)
           page.should have_selector('li p', 
             text: time_ago_in_words(topic.updated_at))

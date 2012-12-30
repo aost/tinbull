@@ -5,20 +5,20 @@ class TopicsController < ApplicationController
     params[:sort] ||= cookies[:sort] || "popular"
     cookies[:sort] = params[:sort]
     if !params[:section]
-      if params[:sort] == "popular"
+      if params[:sort] == "fresh"
+        @topics = Topic.order('created_at DESC').page(params[:page])
+      else
         @topics = Topic.where('updated_at >= ?', 24.hours.ago)
         @topics.sort_by! { |t| [-t.popularity, -t.created_at.to_i] }
         @topics = Kaminari.paginate_array(@topics).page(params[:page])
-      else
-        @topics = Topic.order('created_at DESC').page(params[:page])
       end
     else
-      if params[:sort] == "popular"
+      if params[:sort] == "fresh"
+        @topics = Topic.where(section: params[:section]).order('created_at DESC').page(params[:page])
+      else
         @topics = Topic.where('updated_at >= ? AND section = ?', 24.hours.ago, params[:section])
         @topics.sort_by! { |t| [-t.popularity, -t.created_at.to_i] }
         @topics = Kaminari.paginate_array(@topics).page(params[:page])
-      else
-        @topics = Topic.where(section: params[:section]).order('created_at DESC').page(params[:page])
       end
       @title = '~'+params[:section]
     end
@@ -29,7 +29,7 @@ class TopicsController < ApplicationController
         name: t.name,
         section: t.section,
         sub_id: t.sub_id,
-        replies: t.posts.length - 1,
+        reply_count: t.posts.length - 1,
         first_post_at: t.posts[0].created_at.to_s,
         last_post_at: t.posts[-1].created_at.to_s
       }
