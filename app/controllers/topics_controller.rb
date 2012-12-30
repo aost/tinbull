@@ -2,12 +2,24 @@ class TopicsController < ApplicationController
   respond_to :html, :json, :xml
 
   def index
-    params[:sort] = params[:sort] || cookies[:sort] || "popular"
+    params[:sort] ||= cookies[:sort] || "popular"
     cookies[:sort] = params[:sort]
     if !params[:section]
-      @topics = Topic.order('created_at DESC').page(params[:page])
+      if params[:sort] == "popular"
+        @topics = Topic.where('updated_at >= ?', 24.hours.ago)
+        @topics.sort_by! { |t| [-t.popularity, -t.created_at.to_i] }
+        @topics = Kaminari.paginate_array(@topics).page(params[:page])
+      else
+        @topics = Topic.order('created_at DESC').page(params[:page])
+      end
     else
-      @topics = Topic.where(section: params[:section]).page(params[:page])
+      if params[:sort] == "popular"
+        @topics = Topic.where('updated_at >= ? AND section = ?', 24.hours.ago, params[:section])
+        @topics.sort_by! { |t| [-t.popularity, -t.created_at.to_i] }
+        @topics = Kaminari.paginate_array(@topics).page(params[:page])
+      else
+        @topics = Topic.where(section: params[:section]).order('created_at DESC').page(params[:page])
+      end
       @title = '~'+params[:section]
     end
     

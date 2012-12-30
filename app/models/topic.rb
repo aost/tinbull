@@ -33,11 +33,7 @@ class Topic < ActiveRecord::Base
 
   def popularity
     return nil if !id
-    today_posts = Post.where('created_at >= ?', 24.hours.ago).count
-    return 0 if today_posts == 0
-    topic_today_posts = 
-      Post.where('created_at >= ? AND topic_id = ?', 24.hours.ago, id).count
-    topic_today_posts/today_posts.to_f
+    Post.where('created_at >= ? AND topic_id = ?', 24.hours.ago, id).count
   end
 
   private
