@@ -51,7 +51,15 @@ form {
     display: block; 
     margin-bottom: .5em;
   }
-  textarea { height: 7em; }
+
+  textarea { 
+    height: 7em;
+  }
+
+  input[type="text"], input[type="password"], textarea {
+    min-width: 240px;
+  }
+
   span {
     float: left;
     padding-top: .2em;
