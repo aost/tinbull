@@ -49,3 +49,9 @@ footer {
     padding-bottom: .5em; 
   }
 }
+
+@media only screen and (max-width: 800px) {
+  body {
+    border-width: 0px;
+  }
+}
