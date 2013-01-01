@@ -109,6 +109,8 @@ describe Post do
       it "should seperate paragraphs" do
         @post.text = "one paragraph.\n\ntwo paragraph!\nstill two paragraph.\n\nthree paragraph."
         @post.html.should == "<p>one paragraph.</p><p>two paragraph!\nstill two paragraph.</p><p>three paragraph.</p>"
+        @post.text = "should work with\r\n\r\nnon-unix newlines too."
+        @post.html.should == "<p>should work with</p><p>non-unix newlines too.</p>"
       end
 
       it "shouldn't affect the original text" do

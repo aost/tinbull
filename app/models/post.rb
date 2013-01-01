@@ -98,7 +98,7 @@ class Post < ActiveRecord::Base
     html_text.gsub!(/^(\d+)\.\s(.*)/, '<li value="\1">\2</li>')
     html_text.gsub!(/(<li value.*<\/li>)/m, '<ol>\1</ol>')
 
-    html_text.gsub!(/(.+?)(\n{2}|\z)/m, '<p>\1</p>') # paragraphs
+    html_text.gsub!(/(.+?)((\r?\n){2}|\z)/m, '<p>\1</p>') # paragraphs
     # not around lists
     html_text.gsub!(/<p>(<(ul|ol)>.*<\/(ul|ol)>)<\/p>/m, '\1') 
     html_text
