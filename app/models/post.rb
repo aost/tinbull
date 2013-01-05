@@ -22,6 +22,8 @@ class Post < ActiveRecord::Base
     self.topic = parent.topic if parent
     topic.reload
     self.sub_id = topic.posts.index self
+    decimal_id = topic.password_hashes.index password_hash
+    self.password_id = alphabase(decimal_id) if decimal_id
     save
   end
 
@@ -33,11 +35,6 @@ class Post < ActiveRecord::Base
     else
       @password = self.password_hash = nil
     end
-  end
-
-  def password_id
-    decimal_id = topic.password_hashes.index password_hash
-    alphabase(decimal_id) if decimal_id
   end
 
   def html

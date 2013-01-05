@@ -92,9 +92,10 @@ describe "Topic pages" do
     before do
       @topic = FactoryGirl.create(:topic, name: "What is this fish?", 
                                           section: 'marinebiology')
-      @topic.posts[0].text = "It looks almost like it's not a fish."
-      @topic.posts[0].password = "mlh"
-      @topic.save!
+      @topic.posts.clear
+      @topic.posts << FactoryGirl.create(:post, 
+                        text: "It looks almost like it's not a fish.",
+                        password: "mlh", topic: @topic)
       visit topic_path(section: 'marinebiology', id: 1)
     end
 

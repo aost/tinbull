@@ -110,7 +110,9 @@ describe Topic do
   describe "with a passworded post" do
     before do
       @topic.posts.clear
-      @topic.posts << FactoryGirl.create(:post, topic: @topic, password: 'loafly')
+      @topic.posts << FactoryGirl.build(:post, topic: @topic, password: 'loafly')
+      @topic.posts[0].save!
+      @topic.reload
     end
     it { should be_valid }
     its(:password_hashes) { should have(1).hashstring }
@@ -130,8 +132,10 @@ describe Topic do
     describe "and twenty-seven more with different passwords" do
       before do
         27.times do |i|
-          @topic.posts << FactoryGirl.create(:post, topic: @topic, password: (1+i).to_s)
+          @topic.posts << FactoryGirl.build(:post, topic: @topic, password: (1+i).to_s)
+          @topic.posts[1+i].save!
         end
+        @topic.reload
       end
       it { should be_valid }
       its(:password_hashes) { should have(28).hashstrings }
