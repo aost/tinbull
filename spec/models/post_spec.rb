@@ -166,10 +166,8 @@ describe Post do
 
     describe "is a topic" do
       before do
-        @post.build_topic(name: "Yeah!", section: 'optimism')
-        @post.topic.posts << @post
+        @post.create_topic(name: "Yeah!", section: 'optimism')
         @post.save
-        @post.reload
       end
 
       it { should be_valid }

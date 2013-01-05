@@ -8,7 +8,12 @@ class Topic < ActiveRecord::Base
   validates :section, presence: true, length: { maximum: 20 }
   validates_format_of :section, with: /\A[a-z0-9]*\Z/,
     message: "needs to be alphanumeric"
-  validate :has_posts?
+
+  after_create do
+    section_topics = Topic.where(section: section)
+    self.sub_id = section_topics.index(self) + 1
+    save
+  end 
 
   def section= s
     self[:section] = s.downcase
@@ -26,19 +31,8 @@ class Topic < ActiveRecord::Base
     hashes.uniq
   end
 
-  def sub_id
-    section_topics = Topic.where(section: section)
-    section_topics.index(self) + 1
-  end
-
   def popularity
     return nil if !id
     Post.where('created_at >= ? AND topic_id = ?', 24.hours.ago, id).count
-  end
-
-  private
-  
-  def has_posts?
-    errors.add(:posts, "must have at least one post") if posts.empty?
   end
 end

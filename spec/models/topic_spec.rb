@@ -71,13 +71,12 @@ describe Topic do
   describe "when posts" do
     describe "has 0 items" do
       before { @topic.posts.clear }
-      it { should_not be_valid }
+      it { should be_valid }
       its(:popularity) { should == 0 }
     end
 
     describe "has 1 item" do
       before do
-        @topic.posts.clear
         @topic.posts << FactoryGirl.create(:post, topic: @topic)
         @topic.save
       end

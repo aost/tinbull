@@ -18,8 +18,11 @@ class Post < ActiveRecord::Base
   validates :poster, presence: true
   validate :poster_cannot_be_blocked
 
-  before_save do
+  after_create do
     self.topic = parent.topic if parent
+    topic.reload
+    self.sub_id = topic.posts.index self
+    save
   end
 
   def password= p
@@ -43,10 +46,6 @@ class Post < ActiveRecord::Base
 
   def plain_text
     Nokogiri::HTML(html).text
-  end
-
-  def sub_id
-    topic.posts.index self
   end
 
   private
