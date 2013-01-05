@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105174020) do
+ActiveRecord::Schema.define(:version => 20130105181307) do
 
   create_table "posts", :force => true do |t|
     t.text     "text"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(:version => 20130105174020) do
     t.integer  "sub_id"
     t.string   "password_id"
   end
+
+  add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
 
   create_table "posts_users", :id => false, :force => true do |t|
     t.integer "flagged_post_id"
@@ -38,11 +40,15 @@ ActiveRecord::Schema.define(:version => 20130105174020) do
     t.integer  "sub_id"
   end
 
+  add_index "topics", ["section"], :name => "index_topics_on_section"
+
   create_table "users", :force => true do |t|
     t.string   "ip"
     t.boolean  "blocked",    :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
+
+  add_index "users", ["ip"], :name => "index_users_on_ip"
 
 end
