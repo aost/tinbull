@@ -10,6 +10,6 @@
     <% end %></ul>
   <% end %>
   <%= f.label :text %><%= f.text_area :text %>
-  <%= f.label :password %><%= f.text_field :password, type: :password %>
+  <%= f.label :password, class: 'optional' %><%= f.text_field :password, type: :password, class: 'optional' %>
   <%= f.submit "Reply" %>
 <% end %>

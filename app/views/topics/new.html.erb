@@ -9,7 +9,7 @@
   <%= tf.label :name, "Topic" %><%= tf.text_field :name %>
   <%= tf.fields_for :posts do |pf| %>
     <%= pf.label :text %><%= pf.text_area :text %>
-    <%= pf.label :password %><%= pf.text_field :password, type: :password %>
+    <%= pf.label :password, class: 'optional' %><%= pf.text_field :password, type: :password, class: 'optional' %>
   <% end %>
   <%= tf.submit "Create topic" %>
 <% end %>

@@ -65,6 +65,15 @@ form {
     padding-top: .2em;
     padding-right: .2em;
   }
+
+  .optional {
+    color: $gray;
+  }
+
+  input.optional, textarea.optional {
+    border-color: $gray;
+    color: $darkgray;
+  }
 }
 
 #new-topic {
