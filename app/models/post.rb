@@ -25,8 +25,8 @@ class Post < ActiveRecord::Base
   def password= p
     if p && !p.empty?
       @password = p
-      # TODO: Implement real salt
-      self.password_hash = Digest::SHA256.base64digest("salty" + p) 
+      salt = ENV['PASSWORD_SALT'] || "salty"
+      self.password_hash = Digest::SHA256.base64digest(salt + p) 
     else
       @password = self.password_hash = nil
     end
