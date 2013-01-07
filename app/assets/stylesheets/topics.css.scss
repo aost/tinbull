@@ -1,8 +1,7 @@
 $gray: #AAA;
 $darkgray: #999;
 
-#navigation {
-  padding-bottom: 1em;
+.topic-links {
   font-size: 1.4em;
   #section { float: left; }
   #sort { float: right; }
@@ -10,6 +9,7 @@ $darkgray: #999;
 }
 
 #topics {
+  margin-top: 1.4em;
   list-style: none;
 
   .topic {
@@ -74,11 +74,6 @@ form {
     border-color: $gray;
     color: $darkgray;
   }
-}
-
-#new-topic {
-  font-size: 1.4em;
-  margin-top: 1em;
 }
 
 #topic-heading {

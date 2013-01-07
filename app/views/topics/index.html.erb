@@ -1,8 +1,8 @@
-<div id="navigation">
+<nav class="topic-links">
   <a id="section" href="/~"><%= page_section %></a>
   <div id="sort"><a id="popular" <% if params[:sort] != 'fresh' %>class="current" <% end %>href="?sort=popular">Popular</a> / <a id="fresh" <% if params[:sort] == 'fresh' %>class="current" <% end %>href="?sort=fresh">Fresh</a></div>
   <br />
-</div>
+</nav>
 
 <ul id="topics">
   <%= render @topics %>
@@ -10,4 +10,4 @@
   
 <%= paginate @topics, window: 0 %>
 
-<a id="new-topic" href=<% if params[:section] %>"~<%= params[:section] %>/new" <% else %>"new"<% end %>>New topic</a>
+<nav class="topic-links"><a id="new-topic" href=<% if params[:section] %>"~<%= params[:section] %>/new" <% else %>"new"<% end %>>New topic</a></nav>
