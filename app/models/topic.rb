@@ -33,6 +33,8 @@ class Topic < ActiveRecord::Base
 
   def popularity
     return nil if !id
-    Post.where('created_at >= ? AND topic_id = ?', 24.hours.ago, id).count
+    Rails.cache.fetch("/topic/#{id}-#{updated_at}/popularity", expires_in: 1.week) do
+      Post.where('created_at >= ? AND topic_id = ?', 24.hours.ago, id).count
+    end
   end
 end

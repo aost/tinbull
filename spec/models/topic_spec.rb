@@ -79,6 +79,7 @@ describe Topic do
       before do
         @topic.posts << FactoryGirl.create(:post, topic: @topic)
         @topic.save
+        @topic.reload
       end
       it { should be_valid }
       its(:popularity) { should_not == 0 }
