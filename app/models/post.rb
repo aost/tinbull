@@ -38,11 +38,15 @@ class Post < ActiveRecord::Base
   end
 
   def html
-    tinbullic_to_html(ERB::Util.html_escape(text))
+    Rails.cache.fetch("post_html_#{id}_#{updated_at}") do
+      tinbullic_to_html(ERB::Util.html_escape(text))
+    end
   end
 
   def plain_text
-    Nokogiri::HTML(html).text
+    Rails.cache.fetch("post_plain_text_#{id}_#{updated_at}") do
+      Nokogiri::HTML(html).text
+    end
   end
 
   private

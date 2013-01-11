@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Post do
-  before { @post = FactoryGirl.build(:post) }
+  before(:each) { @post = FactoryGirl.build(:post) }
   subject { @post }
 
   it { should respond_to(:text) }

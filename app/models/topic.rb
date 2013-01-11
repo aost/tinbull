@@ -23,17 +23,19 @@ class Topic < ActiveRecord::Base
   end
 
   def password_hashes
-    hashes = []
-    posts.each do |post|
-     hashes << post.password_hash
+    Rails.cache.fetch("topic_password_hashes_#{id}_#{posts.count}") do
+      hashes = []
+      posts.each do |post|
+       hashes << post.password_hash
+      end
+      hashes.delete(nil)
+      hashes.uniq
     end
-    hashes.delete(nil)
-    hashes.uniq
   end
 
   def popularity
     return nil if !id
-    Rails.cache.fetch("/topic/#{id}-#{posts.count}/popularity", expires_in: 1.week) do
+    Rails.cache.fetch("topic_popularity_#{id}_#{posts.count}", expires_in: 1.hour) do
       Post.where('created_at >= ? AND topic_id = ?', 24.hours.ago, id).count
     end
   end
