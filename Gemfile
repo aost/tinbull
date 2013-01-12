@@ -6,7 +6,6 @@ gem 'bcrypt-ruby'
 gem 'nokogiri'
 gem 'kaminari'
 gem 'backbone-rails'
-gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'sqlite3'
@@ -24,8 +23,13 @@ group :test do
   gem 'launchy'
 end
 
+group :development, :production do
+  gem 'newrelic_rpm'
+end
+
 group :production do
   gem 'pg'
+  gem 'dalli'
 end
 
 # Gems used only for assets and not required
