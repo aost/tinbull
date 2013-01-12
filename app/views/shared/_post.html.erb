@@ -1,7 +1,8 @@
-<div class="post-text">
-  <%= post.html.html_safe %>
-</div>
-<div class="post-info">
-  <p class="poster-id"><%= post.password_id %></p>
-  <p class="post-time" title="<%= post.created_at %>"><%= time_ago_in_words(post.created_at) %> ago</p>
-</div>
+<% cache("post_partial_#{post.id}_#{post.updated_at}") do %>
+  <div class="post-text">
+    <%= post.html.html_safe %>
+  </div>
+  <div class="post-info">
+    <p class="poster-id"><%= post.password_id %></p>
+    <p class="post-time" title="<%= post.created_at %>"><% end %><%#the cache%><%= time_ago_in_words(post.created_at) %> ago</p>
+  </div>

@@ -1,8 +1,10 @@
-<% if local_assigns[:zero] %>
-<li id="post-zero">
-<% else %>
-<li>
-<% end %>
+<% cache("post_item_partial_#{post_item.id}_#{post_item.updated_at}") do %>
+  <% if local_assigns[:zero] %>
+  <li id="post-zero">
+  <% else %>
+  <li>
+  <% end %>
+  <% end %><%#the cache%>
   <%= render partial: 'shared/post', object: post_item %>
   <div class="post-links">
     <a href="<%= post_item.topic.sub_id %>/<%= post_item.sub_id %>/reply">Reply</a>

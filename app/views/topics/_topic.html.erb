@@ -1,13 +1,12 @@
+<% cache("topic_partial_#{topic.id}_#{topic.updated_at}") do %>
 <li class="topic">
   <div class="reply-count"><%= topic.posts.length - 1 %></div>
   <%= link_to topic.name, "~#{topic.section}/#{topic.sub_id}", class: 'name' %>
   <% if !params[:section] %>
     <%= link_to '~'+topic.section, '~'+topic.section, class: 'section' %>
   <% end %>
-  <div class="info">
-    <p title="<%= time(topic) %>"><%= time_ago(topic) %></p>
-    <% if !params[:section] %>
-    <% end %>
-    <br />
+<div class="info">
+  <p title="<%= time(topic) %>"><% end %><%#the cache%><%= time_ago(topic) %></p>
+  <br />
   </div>
 </li>
