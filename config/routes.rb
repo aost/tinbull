@@ -12,4 +12,5 @@ Tinbull::Application.routes.draw do
   match 'about' => 'special#about', as: :about
   match 'markup' => 'special#markup', as: :markup
   match 'code' => 'special#code', as: :code
+  match '*nonsense' => 'application#render_missing_page', as: :not_found
 end

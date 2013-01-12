@@ -42,6 +42,9 @@ class TopicsController < ApplicationController
   def show
     topics = Topic.where(section: params[:section])
     @topic = topics.at(params[:id].to_i - 1)
+    if !@topic
+      raise ActiveRecord::RecordNotFound
+    end
     @title = @topic.name
     @user = 
       User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)

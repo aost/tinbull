@@ -1,0 +1,11 @@
+<h1>404</h1>
+<script>
+  var fof = document.getElementsByTagName('h1')[0];
+  var vis = true;
+  var vals = { true: 'visible', false: 'hidden' };
+  var blink = function() {
+    vis = !vis;
+    fof.setAttribute('style', 'visibility:'+vals[vis]);
+  }
+  setInterval(blink, 500);
+</script>

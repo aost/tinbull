@@ -138,6 +138,12 @@ describe "Topic pages" do
         it { should have_selector('p', text: "B", count: 2) }
       end
     end
+
+    describe "with nonexistent topic" do
+      before { visit topic_path(section: 'null', id: 1) }
+
+      it { should have_selector('h1', text: "404") }
+    end
   end
 
   describe "new" do
