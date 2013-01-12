@@ -1,2 +1,4 @@
-<h1 id="topic-heading"><%= @topic.name %></h1><%= link_to '~'+@topic.section, '/~'+@topic.section %>
-<ul class="post-list root-post-list"><%= render partial: 'post_item', object: @topic.posts[0], locals: { zero: true } %><%= render partial: 'post_item', collection: @topic.posts.where(parent_id: nil).reverse[0..-2] %></ul>
+<% cache("topic_view_#{@topic.id}_#{@topic.updated_at}", expires_in: 1.minute) do %>
+  <h1 id="topic-heading"><%= @topic.name %></h1><%= link_to '~'+@topic.section, '/~'+@topic.section %>
+  <ul class="post-list root-post-list"><%= render partial: 'post_item', object: @topic.posts[0], locals: { zero: true } %><%= render partial: 'post_item', collection: @topic.posts.where(parent_id: nil).reverse[0..-2] %></ul>
+<% end %>
