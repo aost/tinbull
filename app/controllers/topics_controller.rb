@@ -89,6 +89,7 @@ class TopicsController < ApplicationController
     @topic.posts[0].poster = 
       User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)
     if @topic.save
+      expire_action controller: :special, action: :sections
       redirect_to action: :show, id: @topic.sub_id, section: @topic.section
     else
       render :new
