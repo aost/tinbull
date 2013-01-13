@@ -30,7 +30,7 @@ class TopicsController < ApplicationController
         section: t.section,
         sub_id: t.sub_id,
         reply_count: t.posts.length - 1,
-        first_post_at: t.posts[0].created_at.to_s,
+        created_at: t.posts[0].created_at.to_s,
         last_post_at: t.posts[-1].created_at.to_s
       }
       topic.delete(:section) if params[:section]
