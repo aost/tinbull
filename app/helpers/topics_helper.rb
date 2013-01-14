@@ -33,11 +33,7 @@ module TopicsHelper
   end
 
   def other_posts_freshest_first(topic)
-    posts = topic.posts.where(parent_id: nil)
-    if topic.posts.first.sub_id == 0
-      posts.reverse[0..-2]
-    else
-      posts[1..-1]
-    end
+    posts = topic.posts.where(parent_id: nil).order('created_at ASC')
+    posts[1..-1]
   end
 end
