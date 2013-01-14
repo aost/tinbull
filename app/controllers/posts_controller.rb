@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   def new
     topics = Topic.where(section: params[:section])
     topic = topics[params[:topic_id].to_i - 1]
-    @parent = topic.posts[params[:parent_id].to_i]
+    @parent = topic.posts.order('created_at ASC')[params[:parent_id].to_i]
     @post = Post.new
     @title = "\u201C"+@parent.plain_text+"\u201D"
   end
