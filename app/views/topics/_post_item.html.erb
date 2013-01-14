@@ -9,7 +9,7 @@
     <a <% if post_item.flaggers.include?(@user) %>class="flagged" title="Unflag"<% else %>title="Flag disruption"<% end %> href="<%= post_item.topic.sub_id %>/<%= post_item.sub_id %>/flag">&#x2691;</a>
   </div>
   <% if !post_item.children.empty? %> 
-    <ul class="post-list"><%= render partial: 'post_item', collection: post_item.children.reverse %></ul>
+    <ul class="post-list"><%= render partial: 'post_item', collection: post_item.children.order('created_at ASC') %></ul>
   <% end %>
 </li>
 <% if local_assigns[:zero] %><hr /><% end %>
