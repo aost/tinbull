@@ -1,7 +1,8 @@
 module TopicsHelper
   def time_ago(topic)
-    first_post_time = time_ago_in_words(topic.posts[0].created_at)
-    last_post_time = time_ago_in_words(topic.posts[-1].created_at)
+    posts = topic.posts.order('created_at ASC')
+    first_post_time = time_ago_in_words(posts[0].created_at)
+    last_post_time = time_ago_in_words(posts[-1].created_at)
     if last_post_time != first_post_time
       "#{last_post_time} \u2013 #{first_post_time} ago"
     else
