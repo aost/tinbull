@@ -4,7 +4,7 @@ class PostsController < ApplicationController
     topic = topics[params[:topic_id].to_i - 1]
     @parent = topic.posts[params[:parent_id].to_i]
     @post = Post.new
-    @title = "\u201C"+@parent.text+"\u201D"
+    @title = "\u201C"+@parent.plain_text+"\u201D"
   end
 
   def create
