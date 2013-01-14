@@ -31,4 +31,13 @@ module TopicsHelper
     error[0] = error[0].capitalize
     error.gsub! "Name", "Topic"
   end
+
+  def other_posts_freshest_first(topic)
+    posts = topic.posts.where(parent_id: nil)
+    if topic.posts.first.sub_id == 0
+      posts.reverse[0..-2]
+    else
+      posts[1..-1]
+    end
+  end
 end
