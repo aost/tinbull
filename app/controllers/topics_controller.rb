@@ -40,7 +40,7 @@ class TopicsController < ApplicationController
   end
 
   def show
-    topics = Topic.where(section: params[:section])
+    topics = Topic.where(section: params[:section]).order('id ASC')
     @topic = topics.at(params[:id].to_i - 1)
     if !@topic
       raise ActiveRecord::RecordNotFound
@@ -54,7 +54,7 @@ class TopicsController < ApplicationController
       section: @topic.section,
       content: @topic.posts.order('id ASC').first.html,
       password_id: @topic.posts.order('id ASC').first.password_id,
-      time: @topic.posts[0].created_at.to_s,
+      time: @topic.posts.order('id ASC').first.created_at.to_s,
       replies: []
     }
     public_topic[:replies] = 

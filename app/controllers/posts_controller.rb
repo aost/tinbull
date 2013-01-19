@@ -1,15 +1,15 @@
 class PostsController < ApplicationController
   def new
-    topics = Topic.where(section: params[:section])
+    topics = Topic.where(section: params[:section]).order('id ASC')
     topic = topics[params[:topic_id].to_i - 1]
-    @parent = topic.posts.order('created_at ASC')[params[:parent_id].to_i]
+    @parent = topic.posts.order('id ASC').where(sub_id: params[:parent_id].to_i).first
     @post = Post.new
     @title = "\u201C"+@parent.plain_text+"\u201D"
   end
 
   def create
     @post = Post.new(params[:post])
-    topics = Topic.where(section: params[:section])
+    topics = Topic.where(section: params[:section]).order('id ASC')
     topic = topics.at(params[:topic_id].to_i - 1)
     @post.topic_id = topic.id
     if params[:parent_id] != "0"
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     end
     @post.poster = 
       User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)
-    @parent = topic.posts[params[:parent_id].to_i]
+    @parent = topic.posts.order('id ASC').where(sub_id: params[:parent_id].to_i).first
 
     if @post.save
       redirect_to topic_path(@post.topic.section, @post.topic.sub_id)
