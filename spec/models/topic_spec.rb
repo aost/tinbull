@@ -133,8 +133,7 @@ describe Topic do
     describe "and twenty-seven more with different passwords" do
       before do
         27.times do |i|
-          @topic.posts << FactoryGirl.build(:post, topic: @topic, password: (1+i).to_s)
-          @topic.posts[1+i].save!
+          @topic.posts << FactoryGirl.create(:post, topic: @topic, password: (1+i).to_s)
         end
         @topic.reload
       end
@@ -142,12 +141,12 @@ describe Topic do
       its(:password_hashes) { should have(28).hashstrings }
       it do
         {1 => 'B', 2 => 'C', 3 => 'D'}.each do |k, v|
-          @topic.posts[k].password_id.should == v
+          @topic.posts.order('id ASC')[k].password_id.should == v
         end
       end
       it do
         {25 => 'Z', 26 => 'AA', 27 => 'AB'}.each do |k, v|
-          @topic.posts[k].password_id.should == v
+          @topic.posts.order('id ASC')[k].password_id.should == v
         end
       end
 
@@ -174,7 +173,7 @@ describe Topic do
 
   describe "when there is another topic" do
     describe "in the same section" do
-      before { @topic2 = FactoryGirl.create(:topic) }
+      before { @topic2 = FactoryGirl.create(:topic, section: @topic.section) }
       its(:sub_id) { should == 1 }
       it { @topic2.sub_id.should == 2 }
     end

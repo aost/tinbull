@@ -10,7 +10,7 @@ class Topic < ActiveRecord::Base
     message: "needs to be alphanumeric"
 
   after_create do
-    section_topics = Topic.where(section: section)
+    section_topics = Topic.where(section: section).order('id ASC')
     self.sub_id = section_topics.index(self) + 1
     save
   end 
@@ -23,9 +23,9 @@ class Topic < ActiveRecord::Base
   end
 
   def password_hashes
-    Rails.cache.fetch("topic_password_hashes_#{id}_#{updated_at}") do
+    Rails.cache.fetch("topic_password_hashes_#{id}_#{posts.count}") do
       hashes = []
-      posts.each do |post|
+      posts.order('id ASC').each do |post|
        hashes << post.password_hash
       end
       hashes.delete(nil)

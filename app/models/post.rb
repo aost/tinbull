@@ -21,7 +21,7 @@ class Post < ActiveRecord::Base
   after_create do
     self.topic = parent.topic if parent
     topic.reload
-    self.sub_id = topic.posts.count - 1
+    self.sub_id = topic.posts.order('id ASC').index self
     decimal_id = topic.password_hashes.index password_hash
     self.password_id = alphabase(decimal_id) if decimal_id
     save
