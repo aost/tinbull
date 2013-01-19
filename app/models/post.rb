@@ -86,7 +86,7 @@ class Post < ActiveRecord::Base
       named_links << "<a href=\"#{url}\">#{text}</a>" # preserve
       "\uE002"
     end
-    html_text.gsub!(/\w+:\/\/.+?\.\w{2,3}[^\s\.?!,)]*/, 
+    html_text.gsub!(/\w+:\/\/[\S]*[^\s\.?!,)"']/, 
       '<a href="\0">\0</a>') # unnamed links
     html_text.gsub!("\uE002") { |m| named_links.shift } # restore named links
 
