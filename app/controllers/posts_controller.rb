@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     topic = topics.at(params[:topic_id].to_i - 1)
     @post.topic_id = topic.id
     if params[:parent_id] != "0"
-      @post.parent_id = topic.posts[params[:parent_id].to_i].id
+      @post.parent_id = topic.posts.order('id ASC')[params[:parent_id].to_i].id
     end
     @post.poster = 
       User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)
