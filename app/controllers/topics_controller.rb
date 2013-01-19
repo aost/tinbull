@@ -30,8 +30,8 @@ class TopicsController < ApplicationController
         section: t.section,
         sub_id: t.sub_id,
         reply_count: t.posts.length - 1,
-        created_at: t.posts[0].created_at.to_s,
-        last_post_at: t.posts[-1].created_at.to_s
+        created_at: t.posts.order('id ASC').first.created_at.to_s,
+        last_post_at: t.posts.order('id ASC').last.created_at.to_s
       }
       topic.delete(:section) if params[:section]
       public_topics << topic
@@ -52,13 +52,13 @@ class TopicsController < ApplicationController
     public_topic = {
       name: @topic.name,
       section: @topic.section,
-      content: @topic.posts[0].html,
-      password_id: @topic.posts[0].password_id,
+      content: @topic.posts.order('id ASC').first.html,
+      password_id: @topic.posts.order('id ASC').first.password_id,
       time: @topic.posts[0].created_at.to_s,
       replies: []
     }
     public_topic[:replies] = 
-      build_replies(@topic.posts.where(parent_id: nil).reverse[0..-2])
+      build_replies(@topic.posts.where(parent_id: nil).order('id DESC')[0..-2])
     respond_with(public_topic)
   end
 
