@@ -6,7 +6,7 @@
   <%= render partial: 'shared/post', object: post_item %>
   <div class="post-links">
     <a href="<%= post_item.topic.sub_id %>/<%= post_item.sub_id %>/reply">Reply</a>
-    <a <% if post_item.flaggers.include?(@user) %>class="flagged" title="Unflag"<% else %>title="Flag disruption"<% end %> href="<%= post_item.topic.sub_id %>/<%= post_item.sub_id %>/flag">&#x2691;</a>
+    <a <% if post_item.flaggers.include?(@user) %>class="flagged" title="Unflag"<% else %>title="Report disruptive post"<% end %> href="<%= post_item.topic.sub_id %>/<%= post_item.sub_id %>/flag">&#x2691;</a>
   </div>
   <% if !post_item.children.empty? %> 
     <ul class="post-list"><%= render partial: 'post_item', collection: post_item.children.order('created_at DESC') %></ul>
