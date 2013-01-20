@@ -77,7 +77,8 @@ describe Topic do
 
     describe "has 1 item" do
       before do
-        @topic.posts << FactoryGirl.create(:post, topic: @topic)
+        @post = FactoryGirl.create(:post, topic: @topic)
+        @topic.posts << @post
         @topic.save
         @topic.reload
       end
@@ -97,7 +98,11 @@ describe Topic do
         Post.where(id: 8).should be_empty
       end
 
-      it "should touch the topic"
+      it "should touch the topic" do
+        @post.text = "Yup."
+        @topic.should_receive(:touch)
+        @post.save!
+      end
     end
   end
 

@@ -160,7 +160,7 @@ describe Post do
   describe "when topic" do
     describe "is nil" do
       before { @post.topic = nil }
-      #it { should_not be_valid } TODO: Add topic form doesn't work with this 
+      #it { should_not be_valid }
       it "should not be valid"
     end
 

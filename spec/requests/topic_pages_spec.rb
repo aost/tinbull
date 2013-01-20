@@ -69,12 +69,12 @@ describe "Topic pages" do
 
         describe "has 2 posts" do
           before do 
-            @topic.posts << FactoryGirl.create(:post, topic: @topic)
+            @topic.posts << FactoryGirl.create(:post, topic: @topic, created_at: 5.minutes.from_now)
             visit topics_path
           end
 
           it { should have_selector('li div', text: '1') }
-          it "should have a time range"
+          it { should have_selector('p', text: "\u2013") } # en dash, for time range
         end
       end
 

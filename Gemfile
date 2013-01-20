@@ -6,6 +6,7 @@ gem 'bcrypt-ruby'
 gem 'nokogiri'
 gem 'kaminari'
 gem 'backbone-rails'
+gem 'rb-readline'
 
 group :development, :test do
   gem 'sqlite3'

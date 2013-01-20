@@ -36,6 +36,8 @@ describe "Special pages" do
 
   describe "code" do
     before { visit code_path }
-    it "should redirect to github repo"
+    it "should redirect to github repo" do
+      current_url.should == "https://github.com/skofo/tinbull"
+    end
   end
 end
