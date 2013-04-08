@@ -77,8 +77,13 @@ describe "Post pages" do
     before do
       @topic = FactoryGirl.create :topic
       @topic.posts.clear
+      @parent_post = @topic.posts.create(text: "Hello world",
+        poster: FactoryGirl.create(:user))
+      @doomed_post = @topic.posts.create(text: "They see me trolling",
+        poster: FactoryGirl.create(:user))
       @post = @topic.posts.create(text: "I'm running out of filler ideas.",
         password: "noimagination", poster: FactoryGirl.create(:user))
+      @doomed_post.delete
       visit flag_post_path(@post.topic.section, @post.topic.sub_id, @post.sub_id)
     end
 

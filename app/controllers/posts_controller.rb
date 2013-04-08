@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   def flag
     topics = Topic.where(section: params[:section]).order('id ASC')
     topic = topics[params[:topic_id].to_i - 1]
-    post = topic.posts.order('id ASC')[params[:post_id].to_i]
+    post = topic.posts.where(sub_id: params[:post_id].to_i).first
     flagger = User.where(ip: request.remote_ip).first || User.new(ip: request.remote_ip)
     if !post.flaggers.include? flagger
       post.flaggers << flagger
